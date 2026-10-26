@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>心理健康工作平台 · 武汉市光谷第二十六小学</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23A29BFE'/%3E%3Ctext x='32' y='46' font-size='30' text-anchor='middle' fill='white'%3E%F0%9F%92%9C%3C/text%3E%3C/svg%3E">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#F7F5FA;color:#3D3748;font-size:14px}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+input,textarea,select{font-family:inherit;font-size:14px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px 60px}
+
+.topbar{background:#fff;border-bottom:1px solid #EAE4F0;padding:13px 20px;display:flex;
+  align-items:center;justify-content:space-between;position:sticky;top:0;z-index:60}
+.brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:16px}
+.bicon{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#A29BFE,#54A0FF);
+  display:flex;align-items:center;justify-content:center;font-size:18px}
+.school{font-size:12px;color:#8379A0}
+.ops{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+
+/* 登录 */
+.loginwrap{max-width:400px;margin:90px auto;padding:0 16px}
+.logincard{background:#fff;border-radius:18px;padding:32px;box-shadow:0 8px 32px rgba(120,100,170,.1);text-align:center}
+.logincard h2{margin:12px 0 5px;font-size:20px}
+.logincard p{color:#8379A0;font-size:13px;margin-bottom:20px}
+.li{font-size:46px}
+.field{text-align:left;margin-bottom:13px}
+.field label{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
+.field input{width:100%;padding:11px 14px;border:2px solid #EAE4F0;border-radius:11px;outline:none}
+.field input:focus{border-color:#A29BFE}
+.remember{display:flex;align-items:center;gap:7px;font-size:13px;color:#5A5470;margin-bottom:14px}
+.msg{color:#E05570;font-size:13px;margin-top:11px}
+.lh{font-size:12px;color:#B3A9C9;margin-top:14px}
+
+.btn{padding:10px 19px;border-radius:11px;font-size:14px;font-weight:600;transition:all .2s;
+  display:inline-flex;align-items:center;gap:6px}
+.btn-p{background:#A29BFE;color:#fff}.btn-p:hover{background:#8B82F0}
+.btn-ok{background:#5CD85C;color:#fff}.btn-ok:hover{background:#45C445}
+.btn-d{background:#FF8FA3;color:#fff}.btn-d:hover{background:#EE7A92}
+.btn-w{background:#FECA57;color:#7A5B00}.btn-w:hover{background:#EDB93F}
+.btn-s{background:#fff;border:2px solid #EAE4F0;color:#3D3748}.btn-s:hover{border-color:#A29BFE;color:#A29BFE}
+.btn-sm{padding:6px 12px;font-size:12px;border-radius:9px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-block{width:100%;justify-content:center}
+
+.tabs{display:flex;gap:3px;border-bottom:2px solid #EAE4F0;margin-bottom:18px;flex-wrap:wrap}
+.tab{padding:9px 15px;font-size:14px;font-weight:600;color:#8379A0;cursor:pointer;border-radius:10px 10px 0 0}
+.tab:hover{background:#F7F5FA}
+.tab.on{color:#A29BFE;border-bottom:3px solid #A29BFE;margin-bottom:-2px}
+.nbadge{background:#FF8FA3;color:#fff;font-size:11px;padding:1px 7px;border-radius:9px;font-weight:700;margin-left:3px}
+
+.card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 4px 16px rgba(120,100,170,.06);margin-bottom:14px}
+.ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.ch h3{font-size:16px;font-weight:700;display:flex;align-items:center;gap:7px}
+.hint{font-size:12px;color:#A39AB8;line-height:1.6}
+
+/* 工作流条 */
+.flow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.flow-step{flex:1;min-width:120px;background:#fff;border:2px solid #EAE4F0;border-radius:12px;
+  padding:11px 13px;font-size:12px;font-weight:600;color:#8379A0;cursor:pointer;transition:all .2s;text-align:left}
+.flow-step:hover{border-color:#A29BFE}
+.flow-step.on{border-color:#A29BFE;background:#EFEDFF;color:#7A6FE0}
+.flow-step .n{display:inline-block;width:20px;height:20px;border-radius:6px;background:#A29BFE;color:#fff;
+  text-align:center;line-height:20px;font-size:11px;margin-right:5px}
+.flow-step.on .n{background:#7A6FE0}
+
+.modal-wide{max-width:780px}
+.qedit{background:#F7F5FA;border:2px solid #EAE4F0;border-radius:13px;padding:13px 15px;margin-bottom:10px}
+.qedit.on{border-color:#A29BFE;background:#FAFAFF}
+.qe-head{display:flex;align-items:center;gap:8px;margin-bottom:9px;flex-wrap:wrap}
+.qe-no{width:24px;height:24px;border-radius:7px;background:#A29BFE;color:#fff;font-size:12px;
+  display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+.qe-type{padding:2px 9px;border-radius:9px;font-size:11px;font-weight:700;background:#EDE9FE;color:#7A6FE0}
+.qe-ops{margin-left:auto;display:flex;gap:5px}
+.qe-input{width:100%;padding:9px 12px;border:2px solid #EAE4F0;border-radius:9px;font-size:13px;outline:none;resize:vertical}
+.qe-input:focus{border-color:#A29BFE}
+.qe-label{font-size:12px;font-weight:600;margin:7px 0 4px;display:block}
+.qe-req{display:flex;align-items:center;gap:6px;font-size:12px;color:#5A5470}
+.qe-max{width:90px;padding:7px 10px;border:2px solid #EAE4F0;border-radius:9px;font-size:13px;outline:none}
+.addq{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.addq button{padding:7px 12px;border-radius:9px;font-size:12px;font-weight:600;background:#fff;
+  border:2px solid #EAE4F0;color:#3D3748;transition:all .18s}
+.addq button:hover{border-color:#A29BFE;color:#A29BFE;background:#EFEDFF}
+.stat-bar{display:flex;align-items:center;gap:9px;margin-bottom:5px}
+.stat-label{width:130px;font-size:12px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stat-track{flex:1;height:17px;background:#F0ECF6;border-radius:9px;overflow:hidden;min-width:60px}
+.stat-fill{height:100%;background:linear-gradient(90deg,#A29BFE,#54A0FF);border-radius:9px}
+.stat-num{width:66px;text-align:right;font-size:11px;color:#8379A0;font-weight:600;flex-shrink:0}
+.stat-txt{background:#F7F5FA;border-radius:8px;padding:7px 11px;font-size:12px;margin-bottom:5px;line-height:1.5}
+
+/* 列表项 */
+.item{display:flex;align-items:center;justify-content:space-between;padding:13px 15px;
+  border:2px solid #F0ECF6;border-radius:13px;margin-bottom:9px;gap:11px;flex-wrap:wrap}
+.item:hover{border-color:#A29BFE;background:#FAFAFF}
+.imain{flex:1;min-width:190px}
+.ititle{font-weight:700;font-size:15px;margin-bottom:4px}
+.imeta{display:flex;gap:9px;flex-wrap:wrap;font-size:12px;color:#8379A0}
+.iops{display:flex;gap:6px;flex-wrap:wrap}
+
+.tag{padding:2px 9px;border-radius:11px;font-size:11px;font-weight:600}
+.t-normal{background:#E8F8E8;color:#2DA84A}
+.t-watch{background:#FFF4DC;color:#C8912A}
+.t-interview{background:#FFEBEF;color:#D64A68}
+.t-retest{background:#EDE9FE;color:#7A6FE0}
+.t-draft{background:#F0ECF6;color:#8379A0}
+.t-open{background:#E8F4FF;color:#3D8BE8}
+.t-closed{background:#F0ECF6;color:#8379A0}
+.t-crisis{background:#FFD9E0;color:#C02544}
+.t-active{background:#E8F8E8;color:#2DA84A}
+.t-referred{background:#EDE9FE;color:#7A6FE0}
+.t-today{background:#FFEBEF;color:#D64A68}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#F7F5FA;padding:9px;text-align:left;font-weight:600;font-size:12px;color:#8379A0;border-bottom:2px solid #EAE4F0}
+td{padding:9px;border-bottom:1px solid #F0ECF6;vertical-align:top}
+tr:hover td{background:#FAFAFF}
+.tblbox{overflow-x:auto}
+
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.bar-label{width:140px;font-size:12px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar-track{flex:1;height:20px;background:#F0ECF6;border-radius:10px;overflow:hidden;min-width:70px}
+.bar-fill{height:100%;border-radius:10px;transition:width .4s;min-width:2px}
+.bar-count{width:62px;text-align:right;font-size:12px;color:#8379A0;font-weight:600;flex-shrink:0}
+
+.empty{text-align:center;padding:48px 20px;color:#B3A9C9}
+.ei{font-size:50px;margin-bottom:11px}
+.toast{position:fixed;top:18px;left:50%;transform:translateX(-50%) translateY(-18px);background:#3D3748;
+  color:#fff;padding:11px 22px;border-radius:12px;font-size:14px;z-index:9999;opacity:0;visibility:hidden;
+  pointer-events:none;transition:opacity .3s,transform .3s,visibility 0s linear .3s}
+.toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);transition:opacity .3s,transform .3s,visibility 0s}
+.toast.ok{background:#2ECC71}.toast.err{background:#FF8FA3}
+.spin{text-align:center;padding:38px;color:#8379A0}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.38);display:flex;align-items:center;
+  justify-content:center;z-index:300;padding:16px}
+.modal{background:#fff;border-radius:16px;padding:24px;max-width:520px;width:100%;max-height:86vh;overflow-y:auto}
+.modal h3{margin-bottom:12px;font-size:17px}
+.mfield{margin-bottom:12px}
+.mfield label{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
+.mfield input,.mfield select,.mfield textarea{width:100%;padding:10px 13px;border:2px solid #EAE4F0;
+  border-radius:10px;outline:none;resize:vertical}
+.mfield input:focus,.mfield select:focus,.mfield textarea:focus{border-color:#A29BFE}
+.mrow{display:flex;gap:9px}
+.mrow>*{flex:1}
+.warnbox{background:#FFF4DC;border-radius:10px;padding:11px 14px;font-size:12px;color:#8A6414;margin-bottom:13px}
+.infobox{background:#EDE9FE;border-radius:10px;padding:11px 14px;font-size:12px;color:#5B4BB8;margin-bottom:13px;line-height:1.7}
+@media(max-width:640px){
+  .bar-label{width:96px;font-size:11px}
+  .iops{width:100%}
+  .btn{padding:9px 14px;font-size:13px}
+  .flow-step{min-width:100%}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><div class="bicon">💜</div>心理健康工作平台</div>
+  <div class="school">武汉市光谷第二十六小学</div>
+  <div class="ops" id="ops" style="display:none">
+    <button class="btn btn-s btn-sm" onclick="location.href='/'">学生端</button>
+    <button class="btn btn-s btn-sm" onclick="openPwd()">🔑 改密码</button>
+    <button class="btn btn-s btn-sm" onclick="logout()">退出</button>
+  </div>
+</div>
+
+<!-- 登录 -->
+<div id="loginBox" class="loginwrap">
+  <div class="logincard">
+    <div class="li">👩‍⚕️</div>
+    <h2>心理老师登录</h2>
+    <p>武汉市光谷第二十六小学 · 心理健康中心</p>
+    <div class="field"><label>管理密码</label>
+      <input type="password" id="pwd" placeholder="请输入密码" onkeydown="if(event.key==='Enter')login()"></div>
+    <label class="remember"><input type="checkbox" id="rememberBox" checked> 记住我（30 天免登录）</label>
+    <button class="btn btn-p btn-block" onclick="login()">登录 →</button>
+    <div class="msg" id="msg"></div>
+    <p class="lh">本系统含敏感心理数据，请勿在公共设备勾选"记住我"</p>
+  </div>
+</div>
+
+<!-- 主面板 -->
+<div id="panel" style="display:none">
+  <div class="wrap" style="padding-top:16px">
+
+    <!-- 题库载入进度（24 个量表 669 题分批载入）-->
+    <div id="seedBox" style="display:none;margin-bottom:14px;padding:12px 16px;background:#FFF8E7;border:1px solid #F5D9A0;border-radius:12px">
+      <div id="seedTxt" style="font-size:13px;font-weight:700;color:#8A6D3B;margin-bottom:8px">正在载入题库…</div>
+      <div style="height:8px;background:#F0E4CC;border-radius:5px;overflow:hidden">
+        <div id="seedBar" style="height:100%;width:3%;background:linear-gradient(90deg,#FFB86B,#FF8FA3);border-radius:5px;transition:width .3s"></div>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step on" id="fs1" onclick="switchTab('plans')"><span class="n">1</span>普查计划</div>
+      <div class="flow-step" id="fs2" onclick="switchTab('screen')"><span class="n">2</span>筛查名单</div>
+      <div class="flow-step" id="fs3" onclick="switchTab('interview')"><span class="n">3</span>访谈复核</div>
+      <div class="flow-step" id="fs4" onclick="switchTab('cases')"><span class="n">4</span>建档干预</div>
+      <div class="flow-step" id="fs5" onclick="switchTab('retest')"><span class="n">5</span>复测提醒</div>
+      <div class="flow-step" id="fs6" onclick="switchTab('closure')"><span class="n">6</span>转介/结案</div>
+      <div class="flow-step" id="fs7" onclick="switchTab('scales')"><span class="n">⚙</span>量表库</div>
+      <div class="flow-step" id="fs8" onclick="switchTab('report')"><span class="n">📊</span>报告</div>
+      <div class="flow-step" id="fs9" onclick="switchTab('surveys')"><span class="n">📝</span>问卷调查</div>
+    </div>
+
+    <div id="boxPlans"></div>
+    <div id="boxScreen" style="display:none"></div>
+    <div id="boxInterview" style="display:none"></div>
+    <div id="boxCases" style="display:none"></div>
+    <div id="boxRetest" style="display:none"></div>
+    <div id="boxClosure" style="display:none"></div>
+    <div id="boxScales" style="display:none"></div>
+    <div id="boxReport" style="display:none"></div>
+    <div id="boxSurveys" style="display:none"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div id="modalHost"></div>
+
+<script>
+let TOKEN = localStorage.getItem('psych_token') || '';
+let SURVEYS = [], EDIT_QS = [], EDIT_SID = null;
+let PLANS = [], SCALES = [], SCREEN = [], CASES = [], RETESTS = [], INTERVIEWS = [], REFERRALS = [], CLOSURES = [];
+let TAB = 'plans';
+let curPlan = '', curCase = null, openRow = null;
+
+const LN = { normal:'正常', watch:'需关注', interview:'需访谈', retest:'需重测',
+  daily:'日常关注', focus:'重点关注', crisis:'危机关注' };
+const CN = { confirmed:'确认需干预', excluded:'排除', observing:'持续观察', pending:'待访谈' };
+const GRADES = ['一年级','二年级','三年级','四年级','五年级','六年级'];
+
+function toast(m,t=''){const e=document.getElementById('toast');e.textContent=m;e.className='toast show '+t;
+  setTimeout(()=>{e.className='toast '+t;},2500);}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function tagCls(k){return 't-'+(k||'draft')}
+
+async function api(u,opts={}){
+  // 注意顺序：...opts 必须在前，否则 opts.headers 会覆盖掉 Authorization
+  const r=await fetch(u,{...opts,headers:{Authorization:'Bearer '+TOKEN,...(opts.headers||{})}});
+  const ct=r.headers.get('content-type')||'';
+  const b=ct.includes('json')?await r.json():await r.text();
+  if(r.status===401){ doLogout(); throw new Error('登录已过期，请重新登录'); }
+  if(r.status>=400) throw new Error((b&&b.message)||('请求失败 '+r.status));
+  return b;
+}
+
+// ---------- 登录（持久化）----------
+async function login(){
+  const pwd=document.getElementById('pwd').value;
+  if(!pwd){document.getElementById('msg').textContent='请输入密码';return;}
+  const remember=document.getElementById('rememberBox').checked;
+  try{
+    const r=await fetch('/api/auth',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({password:pwd, remember})});
+    const d=await r.json();
+    if(d.ok){
+      TOKEN=d.token;
+      if(remember) localStorage.setItem('psych_token',TOKEN);
+      else localStorage.removeItem('psych_token');
+      document.getElementById('loginBox').style.display='none';
+      document.getElementById('panel').style.display='block';
+      document.getElementById('ops').style.display='flex';
+      document.getElementById('msg').textContent='';
+      loadAll();
+    } else document.getElementById('msg').textContent='❌ '+(d.message||'密码错误');
+  }catch(e){document.getElementById('msg').textContent='❌ '+e.message;}
+}
+
+// 启动时若有 token，先静默校验
+async function tryRestore(){
+  if(!TOKEN) return;
+  try{
+    const r=await fetch('/api/verify?token='+encodeURIComponent(TOKEN));
+    const d=await r.json();
+    if(d.ok){
+      document.getElementById('loginBox').style.display='none';
+      document.getElementById('panel').style.display='block';
+      document.getElementById('ops').style.display='flex';
+      loadAll();
+    } else { localStorage.removeItem('psych_token'); TOKEN=''; }
+  }catch(e){}
+}
+function doLogout(){
+  TOKEN=''; localStorage.removeItem('psych_token');
+  document.getElementById('panel').style.display='none';
+  document.getElementById('loginBox').style.display='block';
+  document.getElementById('ops').style.display='none';
+  document.getElementById('pwd').value='';
+}
+function logout(){ if(confirm('确定退出登录？')) doLogout(); }
+
+// ---------- 改密码 ----------
+function openPwd(){
+  modal('🔑 修改管理密码',
+    '<div class="warnbox">修改后旧登录状态会失效，需要用新密码重新登录。<br>请牢记新密码，遗忘需联系技术人员重置。</div>'+
+    '<div class="mfield"><label>当前密码</label><input type="password" id="op" autocomplete="current-password"></div>'+
+    '<div class="mfield"><label>新密码（至少 6 位）</label><input type="password" id="np" autocomplete="new-password"></div>'+
+    '<div class="mfield"><label>确认新密码</label><input type="password" id="np2" autocomplete="new-password"></div>',
+    async ()=>{
+      const o=document.getElementById('op').value, n=document.getElementById('np').value, n2=document.getElementById('np2').value;
+      if(!o||!n){toast('请填写完整','err');return false;}
+      if(n.length<6){toast('新密码至少 6 位','err');return false;}
+      if(n!==n2){toast('两次输入的新密码不一致','err');return false;}
+      try{
+        const r=await api('/api/admin/password',{method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({oldPassword:o,newPassword:n})});
+        TOKEN=r.token; localStorage.setItem('psych_token',TOKEN);
+        toast('密码已修改，请牢记','ok'); closeModal(); return true;
+      }catch(e){toast('修改失败: '+e.message,'err');return false;}
+    });
+}
+
+// ---------- 弹窗 ----------
+function modal(title, bodyHtml, onOk){
+  document.getElementById('modalHost').innerHTML=
+    '<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal">'+
+    '<h3>'+title+'</h3>'+bodyHtml+
+    '<div style="display:flex;gap:9px;justify-content:flex-end;margin-top:16px">'+
+    '<button class="btn btn-s" onclick="closeModal()">取消</button>'+
+    '<button class="btn btn-p" onclick="modalOk()">确定</button></div></div></div>';
+  window._modalOk=onOk;
+}
+function closeModal(){document.getElementById('modalHost').innerHTML='';window._modalOk=null;}
+async function modalOk(){ const f=window._modalOk; if(f){const r=await f(); if(r!==false) closeModal();} }
+
+// ---------- 加载 ----------
+// ---------- 题库播种（分块推进 + 进度）----------
+// 24 个量表 669 题不能塞进一个请求（Cloudflare 会中断），
+// 这里循环调用 /api/seed 分批载入；失败自动降低每次的量，保证一定能推进。
+async function ensureSeeded(){
+  const box=document.getElementById('seedBox');
+  const bar=document.getElementById('seedBar');
+  const txt=document.getElementById('seedTxt');
+  const show=(pct,msg)=>{
+    if(box) box.style.display='block';
+    if(bar) bar.style.width=Math.max(3,Math.min(100,pct))+'%';
+    if(txt) txt.textContent=msg;
+  };
+  let budget=150;
+  for(let i=0;i<80;i++){
+    let d=null;
+    try{
+      const r=await fetch('/api/seed?limit='+budget,{headers:{Authorization:'Bearer '+TOKEN}});
+      d=await r.json();
+    }catch(e){
+      // 请求失败多半是单次量太大，减半重试
+      budget=Math.max(20,Math.floor(budget/2));
+      continue;
+    }
+    if(!d||typeof d!=='object'){ break; }
+    const doneAll=(d.metaDone?1:0);
+    const pct=d.itemTotal?Math.round((1-(d.missingCount||0)/Math.max(1,d.totalScales||24))*100):50;
+    show(pct, d.done?'题库已就绪'
+      :`正在载入题库… 还剩 ${d.remaining||d.missingCount||0} / ${d.totalScales||24} 个量表`);
+    if(d.done||d.remaining===0){ 
+      show(100,'题库已就绪');
+      setTimeout(()=>{ if(box) box.style.display='none'; },1200);
+      return true;
+    }
+  }
+  show(100,'题库未完整载入，可稍后刷新重试');
+  return false;
+}
+
+async function loadAll(){
+  try{
+    await ensureSeeded();
+    // 并行拉取：原来是 9 个串行 await，每个都要等前一个完成。
+    // 互不依赖的接口一起发，教师端打开速度取决于最慢的单个请求而非总和。
+    const [sc, pl, cs, rt, iv, rf, cl, sv] = await Promise.all([
+      api('/api/admin/scales'),
+      api('/api/admin/plans'),
+      api('/api/admin/cases'),
+      api('/api/admin/retests'),
+      api('/api/admin/interviews'),
+      api('/api/admin/referrals'),
+      api('/api/admin/closures'),
+      api('/api/admin/surveys'),
+    ]);
+    SCALES=sc||[]; PLANS=pl||[]; CASES=cs||[]; RETESTS=rt||[];
+    INTERVIEWS=iv||[]; REFERRALS=rf||[]; CLOSURES=cl||[]; SURVEYS=sv||[];
+    if(!curPlan&&PLANS.length) curPlan=PLANS[0].id;
+    // 筛查名单依赖当前选中的普查，放第二批
+    SCREEN=await api('/api/admin/screenings'+(curPlan?'?planId='+encodeURIComponent(curPlan):''))||[];
+  }catch(e){ toast('加载失败: '+e.message,'err'); return; }
+  renderAll();
+}
+// 标签角标：各环节的待办数量（CSS 类 .nbadge 已内置）
+function updateTabBadges(){
+  try{
+    const set=(id,n)=>{
+      const el=document.getElementById(id); if(!el) return;
+      let b=el.querySelector('.nbadge');
+      if(!n){ if(b) b.remove(); return; }
+      if(!b){ b=document.createElement('span'); b.className='nbadge'; el.appendChild(b); }
+      b.textContent=n;
+    };
+    set('fs2',(SCREEN||[]).filter(x=>x.suggested==='interview').length);   // 待访谈
+    set('fs5',(RETESTS||[]).filter(x=>x.status==='pending').length);        // 待复测
+    set('fs4',(CASES||[]).filter(x=>x.status==='active').length);           // 在案
+  }catch(e){ /* 角标失败不影响主流程 */ }
+}
+
+function renderAll(){
+  // 逐个渲染，单个模块出错不影响其他模块
+  const jobs = [
+    ['plans', renderPlans], ['screen', renderScreen], ['interview', renderInterview],
+    ['cases', renderCases], ['retest', renderRetest], ['closure', renderClosure],
+    ['scales', renderScales], ['report', renderReport], ['surveys', renderSurveys],
+  ];
+  // 一次性写入 DOM：先拼好所有 innerHTML 再赋值，避免逐次触发重排
+  for (const [name, fn] of jobs) {
+    try { fn(); } catch (e) { console.error('渲染失败 ' + name, e); }
+  }
+  updateTabBadges();
+}
+
+// 报告标签的占位渲染（切换到该标签时由 loadReport 加载真实数据）
+function renderReport(){
+  const box=document.getElementById('boxReport');
+  if(!box) return;
+  box.innerHTML='<div class="card"><div class="empty"><div class="ei">📊</div>'+
+    '<p>点击上方「报告」查看团体报告</p>'+
+    '<p style="font-size:12px;margin-top:6px">班级聚合画像、阳性率、困扰维度排序、脱敏上报</p></div></div>';
+}
+
+function switchTab(t){
+  TAB=t;
+  const ids=['plans','screen','interview','cases','retest','closure','scales','report','surveys'];
+  ids.forEach((k,i)=>{
+    const box=document.getElementById('box'+k.charAt(0).toUpperCase()+k.slice(1));
+    if(box) box.style.display = (k===t?'':'none');
+    const fs=document.getElementById('fs'+(i+1));
+    if(fs) fs.className='flow-step'+(k===t?' on':'');
+  });
+  if(t==='report') loadReport();
+  if(t==='screen') loadScreen();
+}
+
+// ==================== 1. 普查计划 ====================
+function renderPlans(){
+  const box=document.getElementById('boxPlans');
+  let h='<div class="card"><div class="ch"><h3>📅 普查计划</h3>'+
+    '<button class="btn btn-p btn-sm" onclick="newPlan()">➕ 新建普查</button></div>'+
+    '<div class="hint">按学期发起，设定年级/班级范围与作答窗口。学生只能在窗口内填写，过期自动关闭。</div></div>';
+  if(!PLANS.length){
+    h+='<div class="card"><div class="empty"><div class="ei">📅</div><p>还没有普查计划</p></div></div>';
+  } else {
+    PLANS.forEach(p=>{
+      const st = p.status==='open'?'t-open':p.status==='closed'?'t-closed':'t-draft';
+      const stName = p.status==='open'?'进行中':p.status==='closed'?'已关闭':'草稿';
+      h+='<div class="item"><div class="imain"><div class="ititle">'+esc(p.title)+'</div>'+
+        '<div class="imeta"><span class="tag '+st+'">'+stName+'</span>'+
+        (p.term?'<span>🏫 '+esc(p.term)+'</span>':'')+
+        '<span>📝 '+(p.scaleIds||[]).length+' 个量表</span>'+
+        '<span>👥 '+p.responseCount+' 份</span>'+
+        (p.startAt?'<span>🕐 '+esc(String(p.startAt).slice(0,10))+' ~ '+esc(String(p.endAt||'').slice(0,10))+'</span>':'<span>不限时</span>')+
+        (p.anonymous?'<span class="tag t-normal">匿名</span>':'')+
+        '</div></div><div class="iops">'+
+        '<button class="btn btn-s btn-sm" onclick="editPlan(\''+esc(p.id)+'\')">✏️ 设置</button>'+
+        (p.status==='open'
+          ? '<button class="btn btn-w btn-sm" onclick="setStatus(\''+esc(p.id)+'\',\'closed\')">⏸ 关闭</button>'
+          : '<button class="btn btn-ok btn-sm" onclick="setStatus(\''+esc(p.id)+'\',\'open\')">🚀 开放</button>')+
+        '<button class="btn btn-s btn-sm" onclick="curPlan=\''+esc(p.id)+'\';switchTab(\'screen\');loadScreen()">📋 名单</button>'+
+        '<button class="btn btn-d btn-sm" onclick="delPlan(\''+esc(p.id)+'\')">🗑️</button>'+
+        '</div></div>';
+    });
+  }
+  box.innerHTML=h;
+}
+
+function planForm(p){
+  const isNew=!p;
+  p=p||{title:'',term:'',gradeScope:[],scaleIds:[],startAt:'',endAt:'',anonymous:false,notice:'',status:'draft'};
+  const gs=p.gradeScope||[];
+  return '<div class="mfield"><label>普查名称</label><input id="fpTitle" value="'+esc(p.title)+'" placeholder="如：2026学年春季心理健康普查"></div>'+
+    '<div class="mfield"><label>学期</label><input id="fpTerm" value="'+esc(p.term||'')+'" placeholder="如：2026春"></div>'+
+    '<div class="mfield"><label>年级范围（按住 Ctrl 可多选）</label><select id="fpGrade" multiple size="6" style="height:auto">'+
+      GRADES.map(g=>'<option value="'+g+'"'+(gs.includes(g)?' selected':'')+'>'+g+'</option>').join('')+'</select></div>'+
+    '<div class="mfield"><label>使用量表（按住 Ctrl 可多选）</label><select id="fpScale" multiple size="5" style="height:auto">'+
+      SCALES.map(s=>'<option value="'+esc(s.id)+'"'+((p.scaleIds||[]).includes(s.id)?' selected':'')+'>'+
+        esc(s.shortName||s.name)+(s.usable?'':'（未导入题目）')+'</option>').join('')+'</select></div>'+
+    '<div class="mrow"><div class="mfield"><label>开始时间</label><input type="date" id="fpStart" value="'+esc(String(p.startAt||'').slice(0,10))+'"></div>'+
+    '<div class="mfield"><label>截止时间</label><input type="date" id="fpEnd" value="'+esc(String(p.endAt||'').slice(0,10))+'"></div></div>'+
+    '<div class="hint" style="margin-bottom:11px">留空表示不限时；设定后学生在窗口外无法提交。</div>'+
+    '<div class="mfield"><label>给学生的说明</label><textarea id="fpNotice" rows="2" placeholder="会显示在学生端">'+esc(p.notice||'')+'</textarea></div>'+
+    '<label class="remember"><input type="checkbox" id="fpAnon"'+(p.anonymous?' checked':'')+'> 匿名填写（不收集姓名班级）</label>'+
+    '<div class="infobox">💡 敏感话题建议匿名；需要追踪个案和复测时必须记名。</div>'+
+    (isNew?'':'<input type="hidden" id="fpId" value="'+esc(p.id)+'">');
+}
+function newPlan(){
+  modal('➕ 新建普查计划', planForm(null), async ()=>{
+    const selG=[...document.getElementById('fpGrade').selectedOptions].map(o=>o.value);
+    const selS=[...document.getElementById('fpScale').selectedOptions].map(o=>o.value);
+    if(!document.getElementById('fpTitle').value.trim()){toast('请填写名称','err');return false;}
+    if(!selS.length){toast('请至少选择一个量表','err');return false;}
+    const body={title:document.getElementById('fpTitle').value.trim(),
+      term:document.getElementById('fpTerm').value, gradeScope:selG, scaleIds:selS,
+      startAt:document.getElementById('fpStart').value, endAt:document.getElementById('fpEnd').value,
+      anonymous:document.getElementById('fpAnon').checked,
+      notice:document.getElementById('fpNotice').value, status:'draft'};
+    await api('/api/admin/plan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    toast('已创建','ok'); await loadAll(); return true;
+  });
+}
+function editPlan(id){
+  const p=PLANS.find(x=>x.id===id); if(!p)return;
+  modal('✏️ 普查设置', planForm(p), async ()=>{
+    const selG=[...document.getElementById('fpGrade').selectedOptions].map(o=>o.value);
+    const selS=[...document.getElementById('fpScale').selectedOptions].map(o=>o.value);
+    const body={id,title:document.getElementById('fpTitle').value.trim(),term:document.getElementById('fpTerm').value,
+      gradeScope:selG,scaleIds:selS,startAt:document.getElementById('fpStart').value,
+      endAt:document.getElementById('fpEnd').value,anonymous:document.getElementById('fpAnon').checked,
+      notice:document.getElementById('fpNotice').value,status:p.status};
+    await api('/api/admin/plan',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    toast('已保存','ok'); await loadAll(); return true;
+  });
+}
+async function setStatus(id,st){
+  const p=PLANS.find(x=>x.id===id); if(!p)return;
+  await api('/api/admin/plan',{method:'PUT',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({...p,status:st})});
+  toast(st==='open'?'已开放，学生可以填写了':'已关闭','ok'); await loadAll();
+}
+async function delPlan(id){
+  if(!confirm('删除这份普查计划？\n\n已提交的答卷不受影响，但会解除关联。'))return;
+  await api('/api/admin/plan?id='+encodeURIComponent(id),{method:'DELETE'});
+  toast('已删除','ok'); await loadAll();
+}
+
+// ==================== 2. 筛查名单 ====================
+async function loadScreen(){
+  try{ SCREEN=await api('/api/admin/screenings'+(curPlan?'?planId='+encodeURIComponent(curPlan):'')); }
+  catch(e){toast('加载失败','err');}
+  renderScreen();
+}
+function renderScreen(){
+  const box=document.getElementById('boxScreen');
+  let h='<div class="card"><div class="ch"><h3>📋 筛查名单</h3><div style="display:flex;gap:6px;flex-wrap:wrap">'+
+    '<select id="planSel" onchange="changePlan(this.value)" style="padding:8px;border:2px solid #EAE4F0;border-radius:10px;max-width:230px"></select>'+
+    '<button class="btn btn-s btn-sm" onclick="exportTalk()">📥 导出待谈名单</button>'+
+    '<button class="btn btn-s btn-sm" onclick="exportResp()">📊 导出明细</button>'+
+    '</div></div>'+
+    '<div class="hint">系统按量表临界值自动分档：<b>正常 / 需关注 / 需访谈</b>；效度不合格标记为<b>需重测</b>。'+
+    '量表分数仅为筛查提示，<b>必须经访谈复核才能定级</b>。</div></div>';
+
+  const cnt={normal:0,watch:0,interview:0,retest:0};
+  SCREEN.forEach(s=>{cnt[s.suggested]=(cnt[s.suggested]||0)+1;});
+  h+='<div class="card"><div class="ch"><h3>📊 分档概览</h3></div>'+
+    '<div class="bar-row"><div class="bar-label">正常</div><div class="bar-track"><div class="bar-fill" style="width:'+pct(cnt.normal,SCREEN.length)+'%;background:#5CD85C"></div></div><div class="bar-count">'+cnt.normal+'</div></div>'+
+    '<div class="bar-row"><div class="bar-label">需关注</div><div class="bar-track"><div class="bar-fill" style="width:'+pct(cnt.watch,SCREEN.length)+'%;background:#FECA57"></div></div><div class="bar-count">'+cnt.watch+'</div></div>'+
+    '<div class="bar-row"><div class="bar-label">需访谈</div><div class="bar-track"><div class="bar-fill" style="width:'+pct(cnt.interview,SCREEN.length)+'%;background:#FF8FA3"></div></div><div class="bar-count">'+cnt.interview+'</div></div>'+
+    '<div class="bar-row"><div class="bar-label">需重测（无效）</div><div class="bar-track"><div class="bar-fill" style="width:'+pct(cnt.retest,SCREEN.length)+'%;background:#A29BFE"></div></div><div class="bar-count">'+cnt.retest+'</div></div></div>';
+
+  if(!SCREEN.length){
+    h+='<div class="card"><div class="empty"><div class="ei">📋</div><p>还没有筛查数据</p></div></div>';
+  } else {
+    h+='<div class="card"><div class="ch"><h3>👥 名单（'+SCREEN.length+'）</h3>'+
+      '<span class="hint">点击"访谈"填写结构化记录</span></div><div class="tblbox"><table>'+
+      '<thead><tr><th>#</th><th>姓名</th><th>班级</th><th>系统建议</th><th>操作分级</th><th>访谈结论</th><th>操作</th></tr></thead><tbody>'+
+      SCREEN.map((s,i)=>'<tr><td>'+(i+1)+'</td><td><b>'+esc(s.name||'匿名')+'</b></td>'+
+        '<td>'+esc(s.grade||'')+esc(s.className||'')+'</td>'+
+        '<td><span class="tag '+tagCls(s.suggested)+'">'+(LN[s.suggested]||s.suggested)+'</span></td>'+
+        '<td>'+(s.opLevel?'<span class="tag t-watch">'+(LN[s.opLevel]||s.opLevel)+'</span>':'—')+'</td>'+
+        '<td>'+(CN[s.confirmed]||s.confirmed||'—')+(s.riskFlag?' <span class="tag t-crisis">危机</span>':'')+'</td>'+
+        '<td><button class="btn btn-p btn-sm" onclick="openInterview(\''+esc(s.id)+'\')">访谈</button></td></tr>'
+      ).join('')+'</tbody></table></div></div>';
+  }
+  box.innerHTML=h;
+  const sel=document.getElementById('planSel');
+  if(sel) sel.innerHTML=PLANS.map(p=>'<option value="'+esc(p.id)+'"'+(p.id===curPlan?' selected':'')+'>'+esc(p.title)+'</option>').join('');
+}
+function pct(n,t){return t?Math.round(n/t*100):0}
+function changePlan(id){curPlan=id;openRow=null;loadScreen();loadReport();}
+function exportTalk(){ if(!curPlan){toast('请先选择普查','err');return;}
+  location.href='/api/admin/export/talklist?planId='+encodeURIComponent(curPlan)+'&token='+encodeURIComponent(TOKEN); }
+function exportResp(){ if(!curPlan){toast('请先选择普查','err');return;}
+  location.href='/api/admin/export/responses?planId='+encodeURIComponent(curPlan)+'&token='+encodeURIComponent(TOKEN); }
+
+// ==================== 3. 访谈复核 ====================
+function openInterview(sid){
+  const s=SCREEN.find(x=>x.id===sid); if(!s)return;
+  const iv=INTERVIEWS.filter(x=>x.screeningId===sid)[0];
+  modal('🗣️ 访谈复核 · '+esc(s.name||'匿名'),
+    '<div class="infobox">量表分数<b>不能替代临床判断</b>。请通过访谈确认后给出结论，三选一：'+
+    '<b>确认需干预 / 排除 / 持续观察</b>。</div>'+
+    '<input type="hidden" id="ivSid" value="'+esc(sid)+'">'+
+    '<input type="hidden" id="ivKey" value="'+esc(s.studentKey||'')+'">'+
+    '<input type="hidden" id="ivName" value="'+esc(s.name||'')+'">'+
+    '<input type="hidden" id="ivPlan" value="'+esc(s.planId||'')+'">'+
+    '<div class="mrow"><div class="mfield"><label>访谈日期</label><input type="date" id="ivDate" value="'+
+      (iv?esc(String(iv.interviewedAt||'').slice(0,10)):new Date().toISOString().slice(0,10))+'"></div>'+
+    '<div class="mfield"><label>访谈老师</label><input id="ivTeacher" value="'+(iv?esc(iv.teacher||''):'')+'"></div></div>'+
+    '<div class="mfield"><label>主诉（学生自述）</label><textarea id="ivChief" rows="2">'+(iv?esc(iv.chiefComplaint||''):'')+'</textarea></div>'+
+    '<div class="mfield"><label>观察（情绪、行为、表达）</label><textarea id="ivObs" rows="2">'+(iv?esc(iv.observation||''):'')+'</textarea></div>'+
+    '<div class="mfield"><label>风险评估（含自伤自杀风险）</label><textarea id="ivRisk" rows="2" placeholder="如：无自伤意念；或：有消极言语，需密切观察">'+(iv?esc(iv.riskAssessment||''):'')+'</textarea></div>'+
+    '<div class="mfield"><label>访谈结论（三选一）</label><select id="ivConcl">'+
+      ['confirmed','excluded','observing'].map(k=>'<option value="'+k+'"'+(iv&&iv.conclusion===k?' selected':'')+'>'+CN[k]+'</option>').join('')+
+      '</select></div>'+
+    '<div class="mfield"><label>结论说明</label><textarea id="ivNote" rows="2">'+(iv?esc(iv.conclusionNote||''):'')+'</textarea></div>'+
+    '<div class="mrow"><div class="mfield"><label>响应分级</label><select id="ivResp">'+
+      ['daily','focus','crisis'].map(k=>'<option value="'+k+'">'+LN[k]+'</option>').join('')+'</select></div>'+
+    '<div class="mfield"><label>复测周期（周）</label><input type="number" id="ivWeeks" value="6" min="4" max="8"></div></div>'+
+    '<div class="mfield"><label>后续计划</label><textarea id="ivPlan" rows="2">'+(iv?esc(iv.planText||''):'')+'</textarea></div>'+
+    '<label class="remember"><input type="checkbox" id="ivGuard"> 已通知监护人</label>'+
+    '<div class="hint">勾选"确认需干预"保存后，系统会<b>自动建档</b>并创建复测提醒。</div>',
+    async ()=>{
+      const body={screeningId:document.getElementById('ivSid').value,
+        planId:document.getElementById('ivPlan').value,
+        studentKey:document.getElementById('ivKey').value,
+        name:document.getElementById('ivName').value,
+        grade:s.grade, className:s.className,
+        interviewedAt:document.getElementById('ivDate').value,
+        teacher:document.getElementById('ivTeacher').value,
+        chiefComplaint:document.getElementById('ivChief').value,
+        observation:document.getElementById('ivObs').value,
+        riskAssessment:document.getElementById('ivRisk').value,
+        conclusion:document.getElementById('ivConcl').value,
+        conclusionNote:document.getElementById('ivNote').value,
+        respLevel:document.getElementById('ivResp').value,
+        retestWeeks:Number(document.getElementById('ivWeeks').value)||6,
+        planText:document.getElementById('ivPlan').value,
+        guardianNotify:document.getElementById('ivGuard').checked};
+      const r=await api('/api/admin/interview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      toast(r.message||'已保存','ok'); await loadAll(); return true;
+    });
+}
+function renderInterview(){
+  const box=document.getElementById('boxInterview');
+  if(!INTERVIEWS.length){
+    box.innerHTML='<div class="card"><div class="empty"><div class="ei">🗣️</div><p>还没有访谈记录</p>'+
+      '<p style="font-size:12px;margin-top:6px">在「筛查名单」里点击学生的「访谈」按钮开始</p></div></div>';
+    return;
+  }
+  box.innerHTML='<div class="card"><div class="ch"><h3>🗣️ 访谈记录（'+INTERVIEWS.length+'）</h3></div>'+
+    INTERVIEWS.map(iv=>'<div class="item"><div class="imain"><div class="ititle">'+esc(iv.name||'匿名')+
+      ' <span class="tag '+tagCls(iv.conclusion==='confirmed'?'interview':iv.conclusion==='observing'?'watch':'normal')+'">'+
+      (CN[iv.conclusion]||iv.conclusion)+'</span></div>'+
+      '<div class="imeta"><span>'+esc(iv.grade||'')+esc(iv.className||'')+'</span>'+
+      '<span>🕐 '+esc(String(iv.interviewedAt||'').slice(0,10))+'</span>'+
+      '<span>👩‍⚕️ '+esc(iv.teacher||'—')+'</span>'+
+      (iv.guardianNotify?'<span class="tag t-normal">已通知监护人</span>':'')+'</div>'+
+      (iv.chiefComplaint?'<div style="font-size:12px;color:#5A5470;margin-top:6px">主诉：'+esc(iv.chiefComplaint)+'</div>':'')+
+      (iv.riskAssessment?'<div style="font-size:12px;color:#C02544;margin-top:3px">风险：'+esc(iv.riskAssessment)+'</div>':'')+
+      '</div></div>').join('')+'</div>';
+}
+
+// ==================== 4. 建档干预 ====================
+function renderCases(){
+  const box=document.getElementById('boxCases');
+  let h='<div class="card"><div class="ch"><h3>📁 个案档案</h3>'+
+    '<button class="btn btn-p btn-sm" onclick="newCase()">➕ 手动建档</button></div>'+
+    '<div class="hint">访谈确认"需干预"后会自动建档。也可手动为教师转介、家长反映的学生建档。</div></div>';
+  if(!CASES.length){
+    h+='<div class="card"><div class="empty"><div class="ei">📁</div><p>还没有个案档案</p></div></div>';
+  } else {
+    h+='<div class="card"><div class="tblbox"><table><thead><tr><th>#</th><th>姓名</th><th>班级</th>'+
+      '<th>分级</th><th>来源</th><th>状态</th><th>干预次数</th><th>操作</th></tr></thead><tbody>'+
+      CASES.map((c,i)=>'<tr><td>'+(i+1)+'</td><td><b>'+esc(c.name||'—')+'</b></td>'+
+        '<td>'+esc(c.grade||'')+esc(c.className||'')+'</td>'+
+        '<td><span class="tag '+tagCls(c.level==='crisis'?'crisis':c.level==='focus'?'watch':'normal')+'">'+(LN[c.level]||c.level)+'</span></td>'+
+        '<td>'+esc(c.source||'—')+'</td>'+
+        '<td><span class="tag '+(c.status==='active'?'t-active':c.status==='referred'?'t-referred':'t-closed')+'">'+
+          (c.status==='active'?'在案':c.status==='referred'?'已转介':'已结案')+'</span></td>'+
+        '<td>'+c.interventionCount+'</td>'+
+        '<td><button class="btn btn-s btn-sm" onclick="openCase(\''+esc(c.id)+'\')">详情</button></td></tr>'
+      ).join('')+'</tbody></table></div></div>';
+  }
+  box.innerHTML=h;
+}
+function newCase(){
+  modal('➕ 手动建档',
+    '<div class="mfield"><label>姓名</label><input id="ncName"></div>'+
+    '<div class="mrow"><div class="mfield"><label>年级</label><select id="ncGrade">'+GRADES.map(g=>'<option>'+g+'</option>').join('')+'</select></div>'+
+    '<div class="mfield"><label>班级</label><input id="ncClass" placeholder="如 3班"></div></div>'+
+    '<div class="mfield"><label>来源</label><select id="ncSrc"><option>普查筛查</option><option>教师转介</option><option>家长反映</option><option>学生自荐</option></select></div>'+
+    '<div class="mfield"><label>分级</label><select id="ncLevel"><option value="daily">日常关注</option><option value="focus" selected>重点关注</option><option value="crisis">危机关注</option></select></div>'+
+    '<div class="mfield"><label>干预计划</label><textarea id="ncPlan" rows="3"></textarea></div>',
+    async ()=>{
+      const name=document.getElementById('ncName').value.trim();
+      if(!name){toast('请填写姓名','err');return false;}
+      const g=document.getElementById('ncGrade').value, c=document.getElementById('ncClass').value.trim();
+      await api('/api/admin/case',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({studentKey:g+'|'+c+'|'+name,name,grade:g,className:c,
+          source:document.getElementById('ncSrc').value,level:document.getElementById('ncLevel').value,
+          planText:document.getElementById('ncPlan').value})});
+      toast('已建档','ok'); await loadAll(); return true;
+    });
+}
+async function openCase(id){
+  const c=CASES.find(x=>x.id===id); if(!c)return;
+  let ivs=[], comp={count:0};
+  try{ ivs=await api('/api/admin/interventions?caseId='+encodeURIComponent(id)); }catch(e){}
+  try{ comp=await api('/api/admin/compare?studentKey='+encodeURIComponent(c.studentKey)); }catch(e){}
+  let detail='';
+  try{ const rp=await api('/api/admin/report/student?studentKey='+encodeURIComponent(c.studentKey));
+    if(rp.ok&&rp.latest) detail='<div class="infobox">最近一次作答：'+esc(String(rp.latest.submittedAt||'').slice(0,10))+
+      '　建议档位：<b>'+(LN[rp.latest.suggested]||rp.latest.suggested)+'</b>'+
+      (rp.latest.valid?'':'（无效：'+esc(rp.latest.invalidReason)+'）')+'</div>'; }catch(e){}
+
+  modal('📁 '+esc(c.name||'个案')+' · '+esc(c.grade||'')+esc(c.className||''),
+    detail+
+    '<div class="mfield"><label>主要困扰维度</label><input id="ccIssues" value="'+esc((c.mainIssues||[]).join('、'))+'" placeholder="如：学习焦虑、孤独倾向"></div>'+
+    '<div class="mfield"><label>分级</label><select id="ccLevel">'+
+      ['daily','focus','crisis'].map(k=>'<option value="'+k+'"'+(c.level===k?' selected':'')+'>'+LN[k]+'</option>').join('')+'</select></div>'+
+    '<div class="mfield"><label>干预计划</label><textarea id="ccPlan" rows="2">'+esc(c.planText||'')+'</textarea></div>'+
+    '<div style="border-top:1px solid #EAE4F0;margin:16px 0 12px"></div>'+
+    '<div style="font-weight:600;margin-bottom:8px">干预记录（'+ivs.length+'）</div>'+
+    (ivs.length?ivs.map(v=>'<div style="background:#F7F5FA;border-radius:9px;padding:9px 12px;margin-bottom:6px;font-size:12px">'+
+      '<b>'+esc(v.date)+' · '+esc(v.type||'')+'</b><br>'+esc(v.content||'')+
+      (v.effect?'<br><span style="color:#8379A0">效果：'+esc(v.effect)+'</span>':'')+'</div>').join('')
+      :'<div class="hint">暂无干预记录</div>')+
+    '<div style="border-top:1px solid #EAE4F0;margin:14px 0 12px"></div>'+
+    '<div style="font-weight:600;margin-bottom:8px">➕ 新增干预记录</div>'+
+    '<div class="mrow"><div class="mfield"><label>日期</label><input type="date" id="niDate" value="'+new Date().toISOString().slice(0,10)+'"></div>'+
+    '<div class="mfield"><label>类型</label><select id="niType"><option>个体辅导</option><option>团体辅导</option><option>家校沟通</option><option>环境调整</option></select></div></div>'+
+    '<div class="mfield"><label>内容</label><textarea id="niContent" rows="2"></textarea></div>'+
+    '<div class="mfield"><label>效果评估</label><textarea id="niEffect" rows="2"></textarea></div>'+
+    '<div style="border-top:1px solid #EAE4F0;margin:14px 0 12px"></div>'+
+    '<div style="display:flex;gap:7px;flex-wrap:wrap">'+
+    '<button class="btn btn-s btn-sm" onclick="addRetest(\''+esc(id)+'\')">⏰ 设复测提醒</button>'+
+    '<button class="btn btn-w btn-sm" onclick="openRefer(\''+esc(id)+'\')">🏥 转介</button>'+
+    '<button class="btn btn-ok btn-sm" onclick="openClose(\''+esc(id)+'\')">✅ 结案</button></div>',
+    async ()=>{
+      await api('/api/admin/case',{method:'PUT',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({id,mainIssues:document.getElementById('ccIssues').value.split(/[、,，]/).map(s=>s.trim()).filter(Boolean),
+          level:document.getElementById('ccLevel').value,planText:document.getElementById('ccPlan').value})});
+      const content=document.getElementById('niContent').value.trim();
+      if(content){
+        await api('/api/admin/intervention',{method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({caseId:id,date:document.getElementById('niDate').value,
+            type:document.getElementById('niType').value,content,effect:document.getElementById('niEffect').value})});
+      }
+      toast('已保存','ok'); await loadAll(); return true;
+    });
+}
+async function addRetest(caseId){
+  const c=CASES.find(x=>x.id===caseId); if(!c)return;
+  modal('⏰ 设置复测提醒',
+    '<div class="infobox">干预后 <b>4–8 周</b> 复测是通行做法。系统会在到期时自动标记"已逾期"。</div>'+
+    '<div class="mfield"><label>复测周期（周）</label><input type="number" id="rtWeeks" value="6" min="4" max="8"></div>',
+    async ()=>{
+      const r=await api('/api/admin/retest',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({caseId,studentKey:c.studentKey,name:c.name,grade:c.grade,className:c.className,
+          weeks:Number(document.getElementById('rtWeeks').value)||6,baselinePlanId:curPlan})});
+      toast(r.message||'已创建','ok'); await loadAll(); return true;
+    });
+}
+
+// ==================== 5. 复测提醒 ====================
+function renderRetest(){
+  const box=document.getElementById('boxRetest');
+  const today=new Date().toISOString().slice(0,10);
+  const pending=RETESTS.filter(r=>r.status==='pending');
+  const overdue=pending.filter(r=>r.dueAt&&r.dueAt<today);
+  let h='<div class="card"><div class="ch"><h3>⏰ 复测提醒</h3></div>'+
+    '<div class="hint">干预 4–8 周后复测，用于评估干预效果。到期未完成的会自动标红。</div></div>';
+  if(!RETESTS.length){
+    h+='<div class="card"><div class="empty"><div class="ei">⏰</div><p>暂无复测提醒</p></div></div>';
+  } else {
+    h+='<div class="card"><div class="tblbox"><table><thead><tr><th>#</th><th>姓名</th><th>班级</th>'+
+      '<th>周期</th><th>到期日</th><th>状态</th><th>操作</th></tr></thead><tbody>'+
+      RETESTS.map((r,i)=>{
+        const isOver = r.status==='pending'&&r.dueAt&&r.dueAt<today;
+        return '<tr><td>'+(i+1)+'</td><td><b>'+esc(r.name||'—')+'</b></td>'+
+        '<td>'+esc(r.grade||'')+esc(r.className||'')+'</td><td>'+r.weeks+' 周</td>'+
+        '<td>'+esc(r.dueAt||'')+(isOver?' <span class="tag t-today">已逾期</span>':'')+'</td>'+
+        '<td><span class="tag '+tagCls(r.status==='done'?'normal':'watch')+'">'+
+          (r.status==='done'?'已完成':'待复测')+'</span></td>'+
+        '<td>'+(r.status!=='done'
+          ? '<button class="btn btn-ok btn-sm" onclick="doneRetest(\''+esc(r.id)+'\')">标记完成</button> '
+          : '')+
+        '<button class="btn btn-s btn-sm" onclick="showCompare(\''+esc(r.studentKey)+'\')">前后对比</button></td></tr>';
+      }).join('')+'</tbody></table></div></div>';
+  }
+  box.innerHTML=h;
+}
+async function doneRetest(id){
+  await api('/api/admin/retest',{method:'PUT',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({id,status:'done',donePlanId:curPlan})});
+  toast('已标记完成','ok'); await loadAll();
+}
+async function showCompare(key){
+  let d;
+  try{ d=await api('/api/admin/compare?studentKey='+encodeURIComponent(key)); }
+  catch(e){toast('加载失败','err');return;}
+  if(!d.ok||!d.count){toast('该学生暂无多次作答记录','err');return;}
+  // 收集所有维度名
+  const dims={};
+  d.series.forEach(s=>{ (s.dims||[]).forEach(x=>{ if(x&&x.name) dims[x.name]=dims[x.name]||{max:x.max||10}; }); });
+  const names=Object.keys(dims);
+  let rows='';
+  if(!names.length) rows='<div class="hint">暂无维度数据</div>';
+  names.forEach(n=>{
+    rows+='<div style="margin-bottom:11px"><div style="font-size:13px;font-weight:600;margin-bottom:5px">'+esc(n)+'</div>';
+    const vals=d.series.map(s=>{const x=(s.dims||[]).find(y=>y&&y.name===n);return x?x.raw:null;});
+    const mx=Math.max(10,...vals.map(v=>v||0));
+    rows+=d.series.map((s,i)=>'<div class="bar-row"><div class="bar-label">'+esc(String(s.date||'').slice(0,10))+'</div>'+
+      '<div class="bar-track"><div class="bar-fill" style="width:'+(vals[i]!=null?Math.round(vals[i]/mx*100):0)+'%;background:'+
+      (i===0?'#C9C2F0':i===d.series.length-1?'#A29BFE':'#54A0FF')+'"></div></div>'+
+      '<div class="bar-count">'+(vals[i]!=null?vals[i]:'—')+'</div></div>').join('');
+    // 趋势
+    const first=vals[0], last=vals[vals.length-1];
+    if(first!=null&&last!=null&&d.series.length>1){
+      const diff=last-first;
+      const better = diff<0;  // 心理量表多为"分越高越差"
+      rows+='<div style="font-size:12px;color:'+(diff===0?'#8379A0':better?'#2DA84A':'#D64A68')+';margin-top:3px">'+
+        (diff===0?'持平':(diff>0?'↑ +':'↓ ')+Math.abs(diff)+' 分')+
+        '（'+(better?'好转':'需继续关注')+'）</div>';
+    }
+    rows+='</div>';
+  });
+  modal('📈 前后测对比（'+d.count+' 次）', rows+
+    '<div class="hint" style="margin-top:10px">左侧为最早一次，右侧为最近一次。多数心理量表分数越低越好。</div>',
+    ()=>true);
+}
+
+// ==================== 6. 转介 / 结案 ====================
+function renderClosure(){
+  const box=document.getElementById('boxClosure');
+  let h='<div class="card"><div class="ch"><h3>🏥 转介与结案</h3></div>'+
+    '<div class="hint">转介须填写登记表、取得监护人同意，并跟进机构反馈；结案须记录原因。</div></div>';
+  h+='<div class="card"><div class="ch"><h3>转介记录（'+REFERRALS.length+'）</h3></div>';
+  if(!REFERRALS.length) h+='<div class="empty" style="padding:28px"><div class="ei">🏥</div><p>暂无转介</p></div>';
+  else h+=REFERRALS.map(r=>'<div class="item"><div class="imain"><div class="ititle">'+esc(r.name||'—')+
+    ' → '+esc(r.toOrg||'（未填机构）')+'</div><div class="imeta">'+
+    '<span>'+esc(r.grade||'')+esc(r.className||'')+'</span>'+
+    '<span>📅 '+esc(r.referredAt||'')+'</span>'+
+    (r.guardianConsent?'<span class="tag t-normal">监护人已同意</span>':'<span class="tag t-crisis">未取得同意</span>')+
+    (r.feedback?'<span class="tag t-open">已反馈</span>':'<span class="tag t-watch">待反馈</span>')+
+    '</div>'+(r.reason?'<div style="font-size:12px;color:#5A5470;margin-top:5px">原因：'+esc(r.reason)+'</div>':'')+
+    (r.feedback?'<div style="font-size:12px;color:#3D8BE8;margin-top:3px">反馈：'+esc(r.feedback)+'</div>':'')+
+    '</div><div class="iops"><button class="btn btn-s btn-sm" onclick="addFeedback(\''+esc(r.id)+'\')">填写反馈</button></div></div>').join('');
+  h+='</div>';
+
+  h+='<div class="card"><div class="ch"><h3>结案记录（'+CLOSURES.length+'）</h3></div>';
+  if(!CLOSURES.length) h+='<div class="empty" style="padding:28px"><div class="ei">✅</div><p>暂无结案</p></div>';
+  else h+=CLOSURES.map(c=>'<div class="item"><div class="imain"><div class="ititle">'+esc(c.name||'—')+
+    '</div><div class="imeta"><span>'+esc(c.grade||'')+esc(c.className||'')+'</span>'+
+    '<span class="tag t-closed">'+esc(c.reason||'')+'</span><span>📅 '+esc(c.closedAt||'')+'</span></div>'+
+    (c.summary?'<div style="font-size:12px;color:#5A5470;margin-top:5px">'+esc(c.summary)+'</div>':'')+
+    '</div></div>').join('');
+  h+='</div>';
+  box.innerHTML=h;
+}
+function openRefer(caseId){
+  const c=CASES.find(x=>x.id===caseId); if(!c)return;
+  modal('🏥 转介校外机构',
+    '<div class="warnbox">转介前须：<b>① 取得监护人知情同意；② 填写转介登记表；③ 后续跟进机构反馈</b>。全程留痕。</div>'+
+    '<div class="mfield"><label>转介机构</label><input id="rfOrg" placeholder="如：市精神卫生中心儿少科"></div>'+
+    '<div class="mfield"><label>转介原因</label><textarea id="rfReason" rows="3" placeholder="主要表现、已做的干预、转介目的"></textarea></div>'+
+    '<div class="mrow"><div class="mfield"><label>转介日期</label><input type="date" id="rfDate" value="'+new Date().toISOString().slice(0,10)+'"></div>'+
+    '<div class="mfield"><label>经手老师</label><input id="rfTeacher"></div></div>'+
+    '<label class="remember"><input type="checkbox" id="rfConsent"> 已取得监护人知情同意</label>',
+    async ()=>{
+      if(!document.getElementById('rfOrg').value.trim()){toast('请填写转介机构','err');return false;}
+      if(!document.getElementById('rfConsent').checked){toast('转介须取得监护人同意','err');return false;}
+      await api('/api/admin/referral',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({caseId,studentKey:c.studentKey,name:c.name,grade:c.grade,className:c.className,
+          toOrg:document.getElementById('rfOrg').value,reason:document.getElementById('rfReason').value,
+          referredAt:document.getElementById('rfDate').value,
+          teacher:document.getElementById('rfTeacher').value,
+          guardianConsent:true})});
+      toast('转介已记录','ok'); switchTab('closure'); await loadAll(); return true;
+    });
+}
+function addFeedback(id){
+  const r=REFERRALS.find(x=>x.id===id); if(!r)return;
+  modal('📝 填写转介反馈',
+    '<div class="mfield"><label>机构反馈</label><textarea id="fbText" rows="4">'+esc(r.feedback||'')+'</textarea></div>'+
+    '<label class="remember"><input type="checkbox" id="fbConsent"'+(r.guardianConsent?' checked':'')+'> 监护人已同意</label>',
+    async ()=>{
+      await api('/api/admin/referral',{method:'PUT',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({id,feedback:document.getElementById('fbText').value,
+          guardianConsent:document.getElementById('fbConsent').checked})});
+      toast('已保存','ok'); await loadAll(); return true;
+    });
+}
+function openClose(caseId){
+  const c=CASES.find(x=>x.id===caseId); if(!c)return;
+  modal('✅ 结案',
+    '<div class="mfield"><label>结案原因</label><select id="clReason">'+
+    ['干预目标达成','症状明显缓解','升学期结束','转介后由校外接手','学生/家长拒绝继续','长期失联','其他']
+      .map(x=>'<option>'+x+'</option>').join('')+'</select></div>'+
+    '<div class="mfield"><label>补充说明</label><textarea id="clNote" rows="2"></textarea></div>'+
+    '<div class="mfield"><label>结案小结</label><textarea id="clSum" rows="3" placeholder="干预过程与效果总结"></textarea></div>'+
+    '<div class="mrow"><div class="mfield"><label>结案日期</label><input type="date" id="clDate" value="'+new Date().toISOString().slice(0,10)+'"></div>'+
+    '<div class="mfield"><label>结案老师</label><input id="clTeacher"></div></div>',
+    async ()=>{
+      await api('/api/admin/closure',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({caseId,studentKey:c.studentKey,name:c.name,grade:c.grade,className:c.className,
+          reason:document.getElementById('clReason').value,reasonNote:document.getElementById('clNote').value,
+          summary:document.getElementById('clSum').value,closedAt:document.getElementById('clDate').value,
+          teacher:document.getElementById('clTeacher').value})});
+      toast('已结案','ok'); switchTab('closure'); await loadAll(); return true;
+    });
+}
+
+// ==================== 7. 量表库 ====================
+function renderScales(){
+  const box=document.getElementById('boxScales');
+  let h='<div class="card"><div class="ch"><h3>📚 标准化量表库</h3>'+
+    '<button class="btn btn-p btn-sm" onclick="newScale()">➕ 自建量表</button></div>'+
+    '<div class="infobox">📚 <b>已内置完整题目</b>，可直接发起普查使用。题目依据各量表公开维度结构整理，'+
+    '正式筛查前建议与正版手册核对（点「维度与临界值」可查看来源说明）。'+
+    '本平台限校内非商业使用；如对外分发、改编或商业运行，需另行取得版权方授权。</div>'+
+    '<div class="warnbox">⚠️ <b>资质要求</b>：心理量表仅限<b>实名认证的心理老师</b>使用与解读，'+
+    '避免非专业人员误用误读。量表分数为筛查提示，<b>不能替代临床诊断</b>。</div></div>';
+  h+=SCALES.map(s=>{
+    const cp = s.copyright==='internal' ? '<span class="tag t-normal">校内使用</span>'
+      : s.copyright==='free' ? '<span class="tag t-normal">可自由使用</span>'
+      : '<span class="tag t-interview">需授权</span>';
+    return '<div class="item"><div class="imain"><div class="ititle">'+esc(s.name)+
+      ' <span class="tag t-draft">'+esc(s.code)+'</span> '+cp+
+      (s.usable?' <span class="tag t-open">已导入 '+s.itemImported+' 题</span>':' <span class="tag t-watch">未导入题目</span>')+'</div>'+
+      '<div class="imeta"><span>适用 '+esc(s.gradeRange||'—')+' 年级</span>'+
+      (s.itemCount?'<span>'+s.itemCount+' 题</span>':'')+
+      (s.dims&&s.dims.length?'<span>'+s.dims.length+' 个维度</span>':'')+'</div>'+
+      '<div style="font-size:12px;color:#5A5470;margin-top:6px">'+esc(s.dimensionNote||'')+'</div>'+
+      (s.scoringNote?'<div style="font-size:12px;color:#8379A0;margin-top:3px">分档：'+esc(s.scoringNote)+'</div>':'')+
+      (s.revision?'<div style="font-size:11px;color:#A39AB8;margin-top:3px">'+esc(s.revision)+'</div>':'')+
+      '<div style="font-size:11px;color:#7A6FE0;margin-top:3px">📖 '+esc(s.normNote||'')+'</div>'+
+      (s.copyrightNote?'<div style="font-size:11px;color:#C8912A;margin-top:3px">🔒 '+esc(s.copyrightNote)+'</div>':'')+
+      '</div><div class="iops">'+
+      '<button class="btn btn-p btn-sm" onclick="editScale(\''+esc(s.id)+'\')">✏️ 编辑量表</button>'+
+      '<button class="btn btn-s btn-sm" onclick="viewDims(\''+esc(s.id)+'\')">维度临界值</button>'+
+      '<button class="btn btn-s btn-sm" onclick="importItems(\''+esc(s.id)+'\')">批量导入</button>'+
+      (s.builtin?'':'<button class="btn btn-d btn-sm" onclick="delScale(\''+esc(s.id)+'\')">🗑️</button>')+
+      '</div></div>';
+  }).join('');
+  box.innerHTML=h;
+}
+function viewDims(id){
+  const s=SCALES.find(x=>x.id===id); if(!s)return;
+  const ds=s.dims||[];
+  modal('📐 '+esc(s.shortName||s.name)+' · 维度与临界值',
+    (ds.length? '<div class="tblbox"><table><thead><tr><th>维度</th><th>满分</th><th>方向</th><th>正常/边缘</th><th>边缘/异常</th></tr></thead><tbody>'+
+      ds.map(d=>'<tr><td><b>'+esc(d.name)+'</b></td><td>'+d.maxScore+'</td>'+
+        '<td>'+(d.direction==='higher_better'?'越高越好':'越高越需关注')+'</td>'+
+        '<td>'+(d.cutNormal!=null?d.cutNormal:'—')+'</td><td>'+(d.cutBorder!=null?d.cutBorder:'—')+'</td></tr>').join('')+
+      '</tbody></table></div>' : '<div class="hint">该量表未配置维度</div>')+
+    (s.normNote?'<div class="infobox" style="margin-top:12px"><b>常模说明</b><br>'+esc(s.normNote)+'</div>':'')+
+    (s.reliability?'<div class="hint" style="margin-top:10px">信效度：'+esc(s.reliability)+'</div>':'')+
+    '<div style="border-top:1px solid #EAE4F0;margin:14px 0 12px"></div>'+
+    '<div class="hint">可自定义维度与临界值（如本校建立本地常模后调整）：</div>'+
+    '<div class="mfield"><label>维度配置（每行：名称,满分,方向,正常界,异常界）</label>'+
+    '<textarea id="dmText" rows="6">'+esc(ds.map(d=>[d.name,d.maxScore,d.direction,d.cutNormal??'',d.cutBorder??''].join(',')).join('\n'))+'</textarea></div>',
+    async ()=>{
+      const txt=document.getElementById('dmText').value.trim();
+      if(!txt){closeModal();return true;}
+      const dims=txt.split('\n').map(l=>l.split(',').map(x=>x.trim())).filter(a=>a[0])
+        .map(a=>({name:a[0],maxScore:Number(a[1])||0,direction:a[2]||'higher_worse',
+          cutNormal:a[3]!==''?Number(a[3]):null,cutBorder:a[4]!==''?Number(a[4]):null}));
+      await api('/api/admin/scale-dims',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({scaleId:id,dims})});
+      toast('维度已保存','ok'); await loadAll(); return true;
+    });
+}
+function importItems(id){
+  const s=SCALES.find(x=>x.id===id); if(!s)return;
+  modal('📥 导入题目 · '+esc(s.shortName||s.name),
+    '<div class="warnbox">⚠️ 请确认已取得该量表的<b>书面授权</b>。题目将存储在你自己的数据库中，'+
+    '请勿导入未授权内容。</div>'+
+    '<div class="mfield"><label>题目（每行一道，格式：题号|维度名|题干|选项1/选项2/选项3）</label>'+
+    '<textarea id="itText" rows="8" placeholder="1|学习焦虑|我常常担心考试|不符合/有点符合/完全符合&#10;2|学习焦虑|我睡不好|不符合/有点符合/完全符合"></textarea></div>'+
+    '<div class="hint" style="margin-bottom:11px">维度名需与「维度与临界值」里的名称一致，系统会自动归组计分。</div>'+
+    '<div class="mfield"><label>计分映射（选项=分数，英文逗号分隔）</label>'+
+    '<input id="itMap" value="不符合=0,有点符合=1,完全符合=2"></div>'+
+    '<div class="hint">效度题请在题干前加 [V] 标记，系统会用于社会赞许性检测。</div>',
+    async ()=>{
+      const txt=document.getElementById('itText').value.trim();
+      if(!txt){toast('请输入题目','err');return false;}
+      const mapText=document.getElementById('itMap').value.trim();
+      const scoreMap={};
+      mapText.split(',').forEach(kv=>{const[k,v]=kv.split('=').map(x=>x.trim()); if(k)scoreMap[k]=Number(v)||0;});
+      const items=txt.split('\n').map(l=>{
+        const parts=l.split('|').map(x=>x.trim());
+        // 4 段：题号|维度名|题干|选项；3 段：题号|题干|选项
+        const hasDim = parts.length>=4;
+        const title = hasDim ? (parts[2]||'') : (parts[1]||parts[0]||'');
+        const dimName = hasDim ? (parts[1]||'') : '';
+        const optStr = hasDim ? (parts[3]||'') : (parts[2]||'');
+        const isV=title.startsWith('[V]');
+        return {title:isV?title.slice(3).trim():title, dimName,
+          options:optStr.split('/').map(x=>x.trim()).filter(Boolean),
+          type:isV?'validity':'normal', scoreMap};
+      }).filter(x=>x.title);
+      const r=await api('/api/admin/scale-items',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({scaleId:id,items})});
+      toast(r.message||'已导入','ok'); await loadAll(); return true;
+    });
+}
+
+// ==================== 8. 报告 ====================
+async function loadReport(){
+  if(!curPlan){ document.getElementById('boxReport').innerHTML=
+    '<div class="card"><div class="empty"><div class="ei">📊</div><p>请先在「普查计划」中选择一份普查</p></div></div>'; return; }
+  let g={};
+  try{ g=await api('/api/admin/report/group?planId='+encodeURIComponent(curPlan)); }
+  catch(e){ document.getElementById('boxReport').innerHTML='<div class="card"><div class="empty">加载失败</div></div>'; return; }
+  const p=PLANS.find(x=>x.id===curPlan);
+  let h='<div class="card"><div class="ch"><h3>📊 团体报告 · '+esc((p&&p.title)||'')+'</h3>'+
+    '<button class="btn btn-p btn-sm" onclick="exportReport()">📥 导出上报报表（脱敏）</button></div>'+
+    '<div class="hint">班级聚合画像、阳性率、主要困扰维度排序。<b>上报报表已脱敏，不含学生姓名</b>。</div></div>';
+
+  h+='<div class="card"><div class="ch"><h3>👥 总体情况</h3></div>'+
+    '<div class="imeta" style="margin-bottom:12px">'+
+    '<span>参与 <b>'+g.total+'</b> 人</span><span>有效 <b>'+g.validCount+'</b></span>'+
+    '<span>无效 <b>'+g.invalidCount+'</b></span></div>'+
+    bar('正常',g.byLevel.normal,g.total,'#5CD85C')+
+    bar('需关注',g.byLevel.watch,g.total,'#FECA57')+
+    bar('需访谈',g.byLevel.interview,g.total,'#FF8FA3')+
+    bar('需重测',g.byLevel.retest||0,g.total,'#A29BFE')+'</div>';
+
+  if(g.dimRank&&g.dimRank.length){
+    h+='<div class="card"><div class="ch"><h3>📈 主要困扰维度排序</h3></div>'+
+      '<div class="hint">按"边缘+异常"占比排序，供学校改进心理健康课程参考。</div>'+
+      '<div class="tblbox" style="margin-top:10px"><table><thead><tr><th>维度</th><th>平均分</th><th>需关注</th><th>异常</th><th>关注率</th></tr></thead><tbody>'+
+      g.dimRank.map(d=>'<tr><td><b>'+esc(d.name)+'</b></td><td>'+d.avg+'</td>'+
+        '<td>'+d.border+'</td><td>'+d.abnormal+'</td>'+
+        '<td><span class="tag '+(d.riskRate>=30?'t-interview':d.riskRate>=15?'t-watch':'t-normal')+'">'+d.riskRate+'%</span></td></tr>').join('')+
+      '</tbody></table></div></div>';
+  }
+  if(g.byClass&&g.byClass.length){
+    h+='<div class="card"><div class="ch"><h3>🏫 各班情况</h3></div><div class="tblbox"><table>'+
+      '<thead><tr><th>班级</th><th>人数</th><th>正常</th><th>需关注</th><th>需访谈</th><th>关注率</th></tr></thead><tbody>'+
+      g.byClass.map(c=>'<tr><td><b>'+esc(c.label)+'</b></td><td>'+c.total+'</td><td>'+c.normal+'</td>'+
+        '<td>'+c.watch+'</td><td>'+c.interview+'</td>'+
+        '<td><span class="tag '+(c.positiveRate>=30?'t-interview':c.positiveRate>=15?'t-watch':'t-normal')+'">'+c.positiveRate+'%</span></td></tr>').join('')+
+      '</tbody></table></div></div>';
+  }
+  h+='<div class="card"><div class="infobox">📌 <b>个体报告</b>：在「筛查名单」点击学生访谈后，'+
+    '可在「个案档案 → 详情」查看个体剖面、与随访对比、访谈结论与干预建议。'+
+    '个体报告仅供心理老师查阅，措辞避免病理化与贴标签。</div></div>';
+  document.getElementById('boxReport').innerHTML=h;
+}
+function bar(label,n,t,color){
+  return '<div class="bar-row"><div class="bar-label">'+esc(label)+'</div>'+
+    '<div class="bar-track"><div class="bar-fill" style="width:'+(t?Math.round(n/t*100):0)+'%;background:'+color+'"></div></div>'+
+    '<div class="bar-count">'+n+' ('+(t?Math.round(n/t*100):0)+'%)</div></div>';
+}
+function exportReport(){ if(!curPlan){toast('请先选择普查','err');return;}
+  location.href='/api/admin/export/report?planId='+encodeURIComponent(curPlan)+'&token='+encodeURIComponent(TOKEN); }
+
+// ==================== 9. 问卷调查（图形化编辑）====================
+const QT = { single:'单选题', multi:'多选题', text:'单行填空', textarea:'多行问答',
+  rating:'评分题', scale:'量表题', number:'数字题', date:'日期题' };
+const QT_ORDER = ['single','multi','scale','rating','text','textarea','number','date'];
+const DEF_OPT = {
+  single:['选项1','选项2','选项3'], multi:['选项1','选项2','选项3'],
+  scale:['非常不同意','不同意','一般','同意','非常同意'],
+  rating:[], text:[], textarea:[], number:[], date:[],
+};
+const newQid = () => 'q' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+
+function renderSurveys(){
+  const box=document.getElementById('boxSurveys');
+  if(!box) return;
+  let h='<div class="card"><div class="ch"><h3>📝 问卷调查</h3>'+
+    '<button class="btn btn-p btn-sm" onclick="newSurvey()">➕ 新建问卷</button></div>'+
+    '<div class="hint">通用问卷调查：支持 <b>单选、多选、单行填空、多行问答、评分、量表、数字、日期</b> 八种题型，'+
+    '所见即所得编辑，统计结果按题型自动出图。与心理普查分开管理。</div></div>';
+  if(!SURVEYS.length){
+    h+='<div class="card"><div class="empty"><div class="ei">📝</div><p>还没有问卷</p>'+
+      '<p style="font-size:12px;margin-top:6px">点「新建问卷」开始，适合做课后服务调查、家校问卷、活动反馈等</p></div></div>';
+  } else {
+    h+='<div class="card">' + SURVEYS.map(s=>{
+      const st = s.status==='open'?'t-open':'t-draft';
+      return '<div class="item"><div class="imain"><div class="ititle">'+esc(s.title)+'</div>'+
+        (s.description?'<div class="imeta" style="margin-top:3px">'+esc(s.description)+'</div>':'')+
+        '<div class="imeta"><span class="tag '+st+'">'+(s.status==='open'?'进行中':'草稿')+'</span>'+
+        '<span>❓ '+s.questionCount+' 题</span><span>👥 '+s.responseCount+' 份</span>'+
+        (s.endAt?'<span>⏰ 截止 '+esc(String(s.endAt).slice(0,10))+'</span>':'<span>不限时</span>')+
+        (s.anonymous?'<span class="tag t-blue">匿名</span>':'')+'</div></div>'+
+        '<div class="iops">'+
+        '<button class="btn btn-p btn-sm" onclick="editSurvey(\''+esc(s.id)+'\')">✏️ 编辑题目</button>'+
+        (s.status==='open'
+          ? '<button class="btn btn-w btn-sm" onclick="setSurveyStatus(\''+esc(s.id)+'\',\'draft\')">⏸ 关闭</button>'
+          : '<button class="btn btn-ok btn-sm" onclick="setSurveyStatus(\''+esc(s.id)+'\',\'open\')">🚀 开放</button>')+
+        '<button class="btn btn-s btn-sm" onclick="viewSurveyStats(\''+esc(s.id)+'\')">📊 统计</button>'+
+        '<button class="btn btn-s btn-sm" onclick="exportSurvey(\''+esc(s.id)+'\')">📥 导出</button>'+
+        '<button class="btn btn-d btn-sm" onclick="delSurvey(\''+esc(s.id)+'\')">🗑️</button>'+
+        '</div></div>';
+    }).join('') + '</div>';
+  }
+  box.innerHTML=h;
+}
+
+async function newSurvey(){
+  const name=prompt('问卷名称：','新建问卷');
+  if(!name) return;
+  const r=await api('/api/admin/survey',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({title:name.trim()})});
+  toast('已创建，请添加题目','ok');
+  await loadAll(); await openEditor(r.id);
+}
+
+async function editSurvey(id){
+  try{ await loadAll(); }catch(e){}
+  await openEditor(id);
+}
+
+async function setSurveyStatus(id,st){
+  const s=SURVEYS.find(x=>x.id===id); if(!s)return;
+  await api('/api/admin/survey',{method:'PUT',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({id,title:s.title,description:s.description,status:st,
+      anonymous:s.anonymous,startAt:s.startAt,endAt:s.endAt,notice:s.notice})});
+  toast(st==='open'?'已开放，学生可以填写了':'已关闭','ok'); await loadAll();
+}
+
+async function delSurvey(id){
+  if(!confirm('删除这份问卷？题目和答卷都会删除。'))return;
+  await api('/api/admin/survey?id='+encodeURIComponent(id),{method:'DELETE'});
+  toast('已删除','ok'); await loadAll();
+}
+
+function exportSurvey(id){
+  location.href='/api/admin/export/survey?surveyId='+encodeURIComponent(id)+'&token='+encodeURIComponent(TOKEN);
+}
+
+// ---------- 图形化题目编辑器 ----------
+async function openEditor(id){
+  const s=SURVEYS.find(x=>x.id===id); if(!s)return;
+  let qs=[];
+  try{ qs=await api('/api/admin/questions?surveyId='+encodeURIComponent(id)); }catch(e){}
+  EDIT_SID=id; EDIT_QS=qs.map(q=>({id:q.id,type:q.type,title:q.title,required:q.required,
+    options:q.options||[],config:q.config||{}}));
+  modal2('✏️ 编辑问卷 · '+esc(s.title),
+    '<div class="mfield"><label>问卷名称</label><input id="svTitle" value="'+esc(s.title)+'"></div>'+
+    '<div class="mfield"><label>说明（学生可见）</label><textarea id="svDesc" rows="2">'+esc(s.description||'')+'</textarea></div>'+
+    '<div class="mrow"><div class="mfield"><label>开始时间</label><input type="date" id="svStart" value="'+esc(String(s.startAt||'').slice(0,10))+'"></div>'+
+    '<div class="mfield"><label>截止时间</label><input type="date" id="svEnd" value="'+esc(String(s.endAt||'').slice(0,10))+'"></div></div>'+
+    '<label class="remember"><input type="checkbox" id="svAnon"'+(s.anonymous?' checked':'')+'> 匿名填写</label>'+
+    '<div style="font-weight:700;margin:14px 0 9px">题目（<span id="qCount">'+EDIT_QS.length+'</span>）</div>'+
+    '<div id="qeditList"></div>'+
+    '<div class="addq">'+QT_ORDER.map(t=>'<button onclick="addQ(\''+t+'\')">➕ '+QT[t]+'</button>').join('')+'</div>',
+    async ()=>{
+      syncQs();
+      const title=document.getElementById('svTitle').value.trim();
+      if(!title){toast('请填写问卷名称','err');return false;}
+      const bad=EDIT_QS.findIndex(q=>!String(q.title||'').trim());
+      if(bad>=0){toast('第 '+(bad+1)+' 题还没写题干','err');return false;}
+      const emptyOpt=EDIT_QS.findIndex(q=>
+        ['single','multi','scale'].includes(q.type) && !(q.options||[]).length);
+      if(emptyOpt>=0){toast('第 '+(emptyOpt+1)+' 题还没填选项','err');return false;}
+      await api('/api/admin/survey',{method:'PUT',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({id:EDIT_SID,title,
+          description:document.getElementById('svDesc').value,
+          startAt:document.getElementById('svStart').value,
+          endAt:document.getElementById('svEnd').value,
+          anonymous:document.getElementById('svAnon').checked,
+          status:SURVEYS.find(x=>x.id===EDIT_SID).status})});
+      const r=await api('/api/admin/questions',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({surveyId:EDIT_SID,questions:EDIT_QS})});
+      toast(r.message||'已保存','ok'); await loadAll(); return true;
+    });
+  renderQEdit();
+}
+
+// 宽版弹窗（题目编辑器需要更大空间）
+function modal2(title, bodyHtml, onOk){
+  document.getElementById('modalHost').innerHTML=
+    '<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal modal-wide">'+
+    '<h3>'+title+'</h3>'+bodyHtml+
+    '<div style="display:flex;gap:9px;justify-content:flex-end;margin-top:16px">'+
+    '<button class="btn btn-s" onclick="closeModal()">取消</button>'+
+    '<button class="btn btn-p" onclick="modalOk()">保存</button></div></div></div>';
+  window._modalOk=onOk;
+}
+
+function syncQs(){
+  EDIT_QS.forEach((q,i)=>{
+    const t=document.getElementById('qt_'+i); if(t) q.title=t.value;
+    const o=document.getElementById('qo_'+i);
+    if(o) q.options=o.value.split('\n').map(x=>x.trim()).filter(Boolean);
+    const r=document.getElementById('qr_'+i); if(r) q.required=r.checked;
+    const m=document.getElementById('qm_'+i); if(m) q.config={max:Number(m.value)||5};
+  });
+}
+
+function renderQEdit(){
+  const box=document.getElementById('qeditList'); if(!box)return;
+  const c=document.getElementById('qCount'); if(c)c.textContent=EDIT_QS.length;
+  if(!EDIT_QS.length){
+    box.innerHTML='<div class="empty" style="padding:26px"><div class="ei">❓</div>'+
+      '<p>还没有题目，点下面的按钮添加</p></div>';
+    return;
+  }
+  box.innerHTML=EDIT_QS.map((q,i)=>{
+    const hasOpt=['single','multi','scale'].includes(q.type);
+    return '<div class="qedit"><div class="qe-head">'+
+      '<span class="qe-no">'+(i+1)+'</span>'+
+      '<span class="qe-type">'+QT[q.type]+'</span>'+
+      '<span class="qe-ops">'+
+      '<button class="btn btn-s btn-sm" onclick="moveQ('+i+',-1)"'+(i===0?' disabled':'')+'>↑</button>'+
+      '<button class="btn btn-s btn-sm" onclick="moveQ('+i+',1)"'+(i===EDIT_QS.length-1?' disabled':'')+'>↓</button>'+
+      '<button class="btn btn-d btn-sm" onclick="delQ('+i+')">✕</button>'+
+      '</span></div>'+
+      '<label class="qe-label">题干</label>'+
+      '<input class="qe-input" id="qt_'+i+'" value="'+esc(q.title)+'" placeholder="请输入题目">'+
+      (hasOpt?'<label class="qe-label">选项（每行一个）</label>'+
+        '<textarea class="qe-input" id="qo_'+i+'" rows="'+(q.options.length||3)+'">'+esc((q.options||[]).join('\n'))+'</textarea>':'')+
+      (q.type==='rating'?'<label class="qe-label">最高分</label>'+
+        '<input class="qe-max" type="number" id="qm_'+i+'" value="'+((q.config||{}).max||5)+'" min="2" max="10">':'')+
+      (!hasOpt&&q.type!=='rating'?'<div class="hint" style="margin-top:6px">学生自由填写</div>':'')+
+      '<label class="qe-req" style="margin-top:8px"><input type="checkbox" id="qr_'+i+'"'+
+        (q.required!==false?' checked':'')+'> 必填</label>'+
+      '</div>';
+  }).join('');
+}
+
+function addQ(type){ syncQs(); EDIT_QS.push({id:newQid(),type,title:'',
+  options:(DEF_OPT[type]||[]).slice(),required:true,config:{max:5}}); renderQEdit(); }
+function moveQ(i,d){ syncQs(); const j=i+d;
+  if(j<0||j>=EDIT_QS.length)return;
+  const t=EDIT_QS[i]; EDIT_QS[i]=EDIT_QS[j]; EDIT_QS[j]=t; renderQEdit(); }
+function delQ(i){ syncQs(); EDIT_QS.splice(i,1); renderQEdit(); }
+
+// ---------- 统计 ----------
+async function viewSurveyStats(id){
+  let d;
+  try{ d=await api('/api/admin/survey-stats?surveyId='+encodeURIComponent(id)); }
+  catch(e){ toast('加载失败: '+e.message,'err'); return; }
+  const s=SURVEYS.find(x=>x.id===id);
+  if(!d.stats.length){ toast('这份问卷还没有题目','err'); return; }
+  let h='<div class="hint" style="margin-bottom:12px">共 <b>'+d.total+'</b> 份答卷 · '+esc(s?s.title:'')+'</div>';
+  d.stats.forEach((q,i)=>{
+    h+='<div style="margin-bottom:16px"><div style="font-weight:700;font-size:13px;margin-bottom:7px">'+
+      (i+1)+'. '+esc(q.title)+' <span class="qe-type">'+esc(QT[q.type]||q.type)+'</span></div>';
+    if(q.dist){
+      if(q.avg!=null) h+='<div class="stat-bar"><div class="stat-label">平均分</div>'+
+        '<div class="stat-track"><div class="stat-fill" style="width:'+
+        Math.round(q.avg/((q.maxV||5)||5)*100)+'%"></div></div>'+
+        '<div class="stat-num">'+q.avg+'</div></div>';
+      h+=q.dist.map(x=>'<div class="stat-bar"><div class="stat-label">'+esc(x.label)+'</div>'+
+        '<div class="stat-track"><div class="stat-fill" style="width:'+
+        (q.count?Math.round(x.n/q.count*100):0)+'%"></div></div>'+
+        '<div class="stat-num">'+x.n+(x.pct!=null?' ('+x.pct+'%)':'')+'</div></div>').join('');
+    } else if(q.texts){
+      if(!q.texts.length) h+='<div class="hint">暂无回答</div>';
+      else h+=q.texts.map(t=>'<div class="stat-txt">'+esc(t)+'</div>').join('');
+    }
+    h+='</div>';
+  });
+  modal2('📊 问卷统计', h, ()=>true);
+}
+
+// ==================== 量表编辑器（自建 / 修改）====================
+const ITEM_TYPE = { normal:'普通题', validity:'效度题', filler:'插入题', risk:'风险题' };
+const RESP = { binary:'是否（2选1）', likert3:'三级（如 不符合/有点/完全）',
+  likert3rev:'三级反向（经常=2/有时=1/没有=0）', likert4:'四级', likert5:'五级',
+  likert6:'六级', likert7:'七级', freq4:'频率四级', event5:'事件五级（无/轻/中/重）',
+  likert3custom:'三级·每题独立选项' };
+const DEF_SCORE = { binary:'是=1,否=0', likert3:'0,1,2', likert3rev:'2,1,0',
+  likert4:'1,2,3,4', likert5:'1,2,3,4,5', likert6:'1,2,3,4,5,6',
+  likert7:'1,2,3,4,5,6,7', freq4:'0,1,2,3', event5:'0,1,2,3', likert3custom:'0,1,2' };
+const DEF_OPTS = {
+  binary:['是','否'], likert3:['不符合','有点符合','完全符合'],
+  likert3rev:['经常','有时','没有'], likert4:['很不符合','不符合','符合','非常符合'],
+  likert5:['完全不符合','不太符合','一般','比较符合','完全符合'],
+  likert6:['非常不同意','不同意','有点不同意','有点同意','同意','非常同意'],
+  likert7:['极不同意','很不同意','稍不同意','中立','稍同意','很同意','极同意'],
+  freq4:['从来没有','1–2 次','每月几次','每周至少一次'],
+  event5:['没有发生','没有影响','轻度','中度','重度'],
+};
+
+let ESC = null;   // 当前编辑的量表 {meta, dims, items}
+
+function newQItemId(){ return 'si' + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+
+async function newScale(){
+  const name = prompt('量表名称（如：校园归属感问卷）：', '校本自编量表');
+  if(!name) return;
+  const code = prompt('量表代号（英文，如 BELONG）：', 'CUSTOM');
+  if(!code) return;
+  let r;
+  try{
+    r = await api('/api/admin/scale', {method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name:name.trim(), code:code.trim(), shortName:name.trim(),
+        responseType:'likert5', gradeRange:'1-6',
+        dims:[{name:'总分', itemCount:0, direction:'higher_worse', maxScore:0}]})});
+  }catch(e){ toast('创建失败：'+e.message,'err'); return; }
+  toast('量表已创建，请添加维度与题目','ok');
+  await loadAll(); await editScale(r.id);
+}
+
+async function delScale(id){
+  if(!confirm('删除这个量表？维度和题目都会删除，已提交的答卷数据不受影响。')) return;
+  try{ await api('/api/admin/scale?id='+encodeURIComponent(id),{method:'DELETE'});
+    toast('已删除','ok'); await loadAll(); }
+  catch(e){ toast(e.message,'err'); }
+}
+
+async function editScale(id){
+  const s = SCALES.find(x=>x.id===id);
+  if(!s){ toast('量表不存在','err'); return; }
+  let items=[];
+  try{ items = await api('/api/admin/scale-items?scaleId='+encodeURIComponent(id)); }
+  catch(e){}
+  const dims = (s.dims||[]).map((d,i)=>({ key:'k'+i, id:d.id, name:d.name, itemCount:d.itemCount,
+    direction:d.direction||'higher_worse', maxScore:d.maxScore||0,
+    cutNormal:(d.cutNormal==null?'':d.cutNormal), cutBorder:(d.cutBorder==null?'':d.cutBorder), note:d.note||'' }));
+  if(!dims.length) dims.push({ key:'k0', id:'', name:'总分', itemCount:0,
+    direction:'higher_worse', maxScore:0, cutNormal:'', cutBorder:'', note:'' });
+  const dimByReal = {}; dims.forEach(d=>{ dimByReal[d.id]=d.key; });
+  ESC = { id, meta:{...s}, dims,
+    items: items.map(it=>{
+      const sm = it.scoreMap || {};
+      const opts = it.options || [];
+      const scoreText = opts.map(o => (sm[o]!=null ? sm[o] : '')).join(',');
+      return { id:it.id, dimId: dimByReal[it.dimId] || '', type:it.type||'normal',
+        title:it.title, options:opts, reverse:!!it.reverse, scoreText };
+    }) };
+
+  modal2('✏️ 编辑量表 · '+esc(s.shortName||s.name),
+    '<div class="mrow"><div class="mfield"><label>量表名称</label><input id="scName" value="'+esc(s.name)+'"></div>'+
+    '<div class="mfield"><label>代号</label><input id="scCode" value="'+esc(s.code)+'"></div></div>'+
+    '<div class="mrow"><div class="mfield"><label>适用年级</label><input id="scGrade" value="'+esc(s.gradeRange||'')+'" placeholder="如 1-6"></div>'+
+    '<div class="mfield"><label>作答方式</label><select id="scResp">'+
+      Object.entries(RESP).map(([k,v])=>'<option value="'+k+'"'+(s.responseType===k?' selected':'')+'>'+v+'</option>').join('')+
+    '</select></div></div>'+
+    '<div class="mfield"><label>维度说明</label><textarea id="scDimNote" rows="2">'+esc(s.dimensionNote||'')+'</textarea></div>'+
+    '<div class="mfield"><label>计分与分档说明</label><textarea id="scScoreNote" rows="2">'+esc(s.scoringNote||'')+'</textarea></div>'+
+
+    '<div style="font-weight:700;margin:16px 0 9px;display:flex;align-items:center;gap:9px">'+
+      '维度（<span id="scDimCount">'+dims.length+'</span>）'+
+      '<button class="btn btn-s btn-sm" onclick="addScaleDim()">➕ 加维度</button></div>'+
+    '<div id="scDimList"></div>'+
+
+    '<div style="font-weight:700;margin:16px 0 9px;display:flex;align-items:center;gap:9px">'+
+      '题目（<span id="scItemCount">'+ESC.items.length+'</span>）'+
+      '<button class="btn btn-s btn-sm" onclick="addScaleItem(\'normal\')">➕ 普通题</button>'+
+      '<button class="btn btn-s btn-sm" onclick="addScaleItem(\'validity\')">🛡 效度题</button>'+
+      '<button class="btn btn-s btn-sm" onclick="addScaleItem(\'filler\')">💬 插入题</button></div>'+
+    '<div id="scItemList"></div>',
+    saveScale);
+  renderScaleDims(); renderScaleItems();
+}
+
+function syncScale(){
+  if(!ESC) return;
+  const g = i => document.getElementById(i);
+  if(g('scName')) ESC.meta.name = g('scName').value;
+  if(g('scCode')) ESC.meta.code = g('scCode').value;
+  if(g('scGrade')) ESC.meta.gradeRange = g('scGrade').value;
+  if(g('scResp')) ESC.meta.responseType = g('scResp').value;
+  if(g('scDimNote')) ESC.meta.dimensionNote = g('scDimNote').value;
+  if(g('scScoreNote')) ESC.meta.scoringNote = g('scScoreNote').value;
+  ESC.dims.forEach((d,i)=>{
+    const n=g('sDn_'+i); if(n) d.name=n.value;
+    const dir=g('sDd_'+i); if(dir) d.direction=dir.value;
+    const ms=g('sDm_'+i); if(ms) d.maxScore=Number(ms.value)||0;
+    const cn=g('sDcn_'+i); if(cn) d.cutNormal=cn.value===''?'':Number(cn.value);
+    const cb=g('sDcb_'+i); if(cb) d.cutBorder=cb.value===''?'':Number(cb.value);
+  });
+  ESC.items.forEach((it,i)=>{
+    const t=g('sIt_'+i); if(t) it.title=t.value;
+    const dm=g('sId_'+i); if(dm) it.dimId=dm.value;
+    const tp=g('sIy_'+i); if(tp) it.type=tp.value;
+    const o=g('sIo_'+i); if(o) it.options=o.value.split('\n').map(x=>x.trim()).filter(Boolean);
+    const s=g('sIs_'+i); if(s) it.scoreText=s.value;
+    const r=g('sIr_'+i); if(r) it.reverse=r.checked;
+  });
+}
+
+function renderScaleDims(){
+  const box=document.getElementById('scDimList'); if(!box||!ESC) return;
+  const c=document.getElementById('scDimCount'); if(c) c.textContent=ESC.dims.length;
+  box.innerHTML = ESC.dims.map((d,i)=>
+    '<div class="qedit"><div class="qe-head"><span class="qe-no">D'+(i+1)+'</span>'+
+    '<input class="qe-input" style="flex:1;max-width:220px" id="sDn_'+i+'" value="'+esc(d.name)+'" placeholder="维度名">'+
+    '<span class="qe-ops"><button class="btn btn-d btn-sm" onclick="delScaleDim('+i+')">✕</button></span></div>'+
+    '<div class="mrow" style="gap:8px;margin-top:7px">'+
+    '<div style="flex:1"><label class="qe-label">方向</label>'+
+    '<select class="qe-input" id="sDd_'+i+'">'+
+      '<option value="higher_worse"'+(d.direction==='higher_worse'?' selected':'')+'>越高越需关注</option>'+
+      '<option value="higher_better"'+(d.direction==='higher_better'?' selected':'')+'>越高越好</option></select></div>'+
+    '<div style="width:88px"><label class="qe-label">满分</label>'+
+    '<input class="qe-max" style="width:100%" type="number" id="sDm_'+i+'" value="'+esc(d.maxScore)+'"></div>'+
+    '<div style="width:88px"><label class="qe-label">正常界</label>'+
+    '<input class="qe-max" style="width:100%" type="number" id="sDcn_'+i+'" value="'+esc(d.cutNormal)+'"></div>'+
+    '<div style="width:88px"><label class="qe-label">异常界</label>'+
+    '<input class="qe-max" style="width:100%" type="number" id="sDcb_'+i+'" value="'+esc(d.cutBorder)+'"></div>'+
+    '</div></div>').join('');
+}
+
+function renderScaleItems(){
+  const box=document.getElementById('scItemList'); if(!box||!ESC) return;
+  const c=document.getElementById('scItemCount'); if(c) c.textContent=ESC.items.length;
+  if(!ESC.items.length){
+    box.innerHTML='<div class="empty" style="padding:24px"><div class="ei">❓</div>'+
+      '<p>还没有题目，点上面按钮添加，或用「批量导入」一次性导入</p></div>'; return;
+  }
+  box.innerHTML = ESC.items.map((it,i)=>{
+    const needOpt = it.type!=='risk';
+    return '<div class="qedit"><div class="qe-head"><span class="qe-no">'+(i+1)+'</span>'+
+    '<span class="qe-type" style="'+(it.type==='validity'?'background:#FFEBEF;color:#C0455F':
+      it.type==='filler'?'background:#F0ECF6;color:#8379A0':
+      it.type==='risk'?'background:#FFE8E8;color:#D63A3A':'')+'">'+ITEM_TYPE[it.type]+'</span>'+
+    '<span class="qe-ops">'+
+      '<button class="btn btn-s btn-sm" onclick="moveScaleItem('+i+',-1)"'+(i===0?' disabled':'')+'>↑</button>'+
+      '<button class="btn btn-s btn-sm" onclick="moveScaleItem('+i+',1)"'+(i===ESC.items.length-1?' disabled':'')+'>↓</button>'+
+      '<button class="btn btn-d btn-sm" onclick="delScaleItem('+i+')">✕</button></span></div>'+
+    '<div class="mrow" style="gap:8px">'+
+      '<div style="width:150px"><label class="qe-label">所属维度</label>'+
+      '<select class="qe-input" id="sId_'+i+'"><option value="">（不计分）</option>'+
+      ESC.dims.map(d=>'<option value="'+esc(d.key)+'"'+(it.dimId===d.key?' selected':'')+'>'+esc(d.name)+'</option>').join('')+
+      '</select></div>'+
+      '<div style="width:110px"><label class="qe-label">题型</label>'+
+      '<select class="qe-input" id="sIy_'+i+'">'+
+      Object.entries(ITEM_TYPE).filter(x=>x[0]!=='risk'||it.type==='risk')
+        .map(([k,v])=>'<option value="'+k+'"'+(it.type===k?' selected':'')+'>'+v+'</option>').join('')+
+      '</select></div>'+
+      '<label class="qe-req" style="align-self:flex-end;padding-bottom:8px">'+
+      '<input type="checkbox" id="sIr_'+i+'"'+(it.reverse?' checked':'')+'> 反向</label>'+
+    '</div>'+
+    '<label class="qe-label">题干</label>'+
+    '<input class="qe-input" id="sIt_'+i+'" value="'+esc(it.title)+'" placeholder="请输入题干">'+
+    (needOpt?'<div class="mrow" style="gap:8px;margin-top:7px">'+
+      '<div style="flex:1"><label class="qe-label">选项（每行一个）</label>'+
+      '<textarea class="qe-input" id="sIo_'+i+'" rows="'+Math.min(Math.max(it.options.length,2),6)+'">'+esc((it.options||[]).join('\n'))+'</textarea></div>'+
+      '<div style="width:130px"><label class="qe-label">分值（逗号分隔）</label>'+
+      '<input class="qe-input" id="sIs_'+i+'" value="'+esc(it.scoreText||'')+'" placeholder="0,1,2"></div>'+
+      '</div>':'<div class="hint" style="margin-top:6px">风险题选到最高分会自动触发危机预警</div>')+
+    '</div>';
+  }).join('');
+}
+
+function addScaleDim(){ syncScale();
+  ESC.dims.push({key:'k'+Date.now().toString(36), id:'', name:'', itemCount:0,
+    direction:'higher_worse', maxScore:0, cutNormal:'', cutBorder:'', note:''});
+  renderScaleDims(); renderScaleItems(); }
+function delScaleDim(i){ syncScale(); ESC.dims.splice(i,1); renderScaleDims(); renderScaleItems(); }
+function addScaleItem(type){ syncScale();
+  const rt = ESC.meta.responseType || 'likert5';
+  const opts = (DEF_OPTS[rt] || ['完全不符合','不太符合','一般','比较符合','完全符合']).slice();
+  ESC.items.push({ id:newQItemId(), dimId: ESC.dims[0]?ESC.dims[0].key:'', type,
+    title:'', options: type==='filler'?[]:opts, reverse:false,
+    scoreText: DEF_SCORE[rt] || '0,1,2' });
+  renderScaleItems(); }
+function moveScaleItem(i,d){ syncScale(); const j=i+d;
+  if(j<0||j>=ESC.items.length) return;
+  const t=ESC.items[i]; ESC.items[i]=ESC.items[j]; ESC.items[j]=t; renderScaleItems(); }
+function delScaleItem(i){ syncScale(); ESC.items.splice(i,1); renderScaleItems(); }
+
+async function saveScale(){
+  syncScale();
+  if(!ESC) return true;
+  if(!String(ESC.meta.name||'').trim()){ toast('请填写量表名称','err'); return false; }
+  const di = ESC.dims.findIndex(d=>!String(d.name||'').trim());
+  if(di>=0){ toast('第 '+(di+1)+' 个维度还没填名称','err'); return false; }
+  const ii = ESC.items.findIndex(it=>!String(it.title||'').trim());
+  if(ii>=0){ toast('第 '+(ii+1)+' 题还没写题干','err'); return false; }
+  const oi = ESC.items.findIndex(it=>it.type!=='filler' && !(it.options||[]).length);
+  if(oi>=0){ toast('第 '+(oi+1)+' 题还没填选项','err'); return false; }
+  try{
+    const r = await api('/api/admin/scale',{method:'PUT',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ id:ESC.id, name:ESC.meta.name, code:ESC.meta.code,
+        shortName:ESC.meta.shortName||ESC.meta.name, responseType:ESC.meta.responseType,
+        gradeRange:ESC.meta.gradeRange, dimensionNote:ESC.meta.dimensionNote,
+        scoringNote:ESC.meta.scoringNote,
+        dims:ESC.dims.map(d=>({key:d.key,id:d.id,name:d.name,itemCount:d.itemCount,
+          direction:d.direction,maxScore:d.maxScore,cutNormal:d.cutNormal,cutBorder:d.cutBorder})),
+        items:ESC.items.map(it=>({id:it.id,dimId:it.dimId,type:it.type,title:it.title,
+          options:it.options,reverse:it.reverse,scoreText:it.scoreText})) })});
+    toast(r.message||'已保存','ok'); await loadAll(); return true;
+  }catch(e){ toast('保存失败：'+e.message,'err'); return false; }
+}
+
+// ==================== 启动 ====================
+switchTab('plans');
+tryRestore();
+</script>
+</body>
+</html>

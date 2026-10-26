@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心理小调查 · 武汉市光谷第二十六小学</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23A29BFE'/%3E%3Ctext x='32' y='46' font-size='32' text-anchor='middle' fill='white'%3E%F0%9F%92%9C%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#FAF8FF;--bg2:#F2EEFF;--card:#fff;--text:#3E3750;--soft:#8379A0;--light:#B3A9C9;
+  --border:#EAE4F5;--shadow:0 8px 32px rgba(140,120,190,.13);
+  --r:24px;--rs:16px;
+  --purple:#A29BFE;--purple-soft:#EFEDFF;--green:#5CD85C;--green-soft:#E8F8E8;
+  --blue:#54A0FF;--blue-soft:#E8F4FF;--yellow:#FECA57;--red:#FF8FA3;--red-soft:#FFEBEF;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--bg);color:var(--text);min-height:100vh;line-height:1.65}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+input,select,textarea{font-family:inherit}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;cursor:pointer}
+.logo-icon{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--purple),var(--blue));
+  display:flex;align-items:center;justify-content:center;font-size:20px}
+.school{font-size:13px;color:var(--soft);font-weight:500}
+.container{max-width:800px;margin:0 auto;padding:24px 18px 60px}
+
+.privacy{background:linear-gradient(135deg,var(--green-soft),var(--blue-soft));
+  border:2px solid #CDEBD8;border-radius:var(--rs);padding:14px 18px;margin-bottom:18px;
+  display:flex;align-items:center;gap:12px}
+.privacy .pi{font-size:26px;flex-shrink:0}
+.privacy b{color:#2DA84A;font-size:15px;display:block;margin-bottom:2px}
+.privacy span{font-size:13px;color:#4A6B55}
+
+.hero{text-align:center;padding:14px 0 22px}
+.hero-emoji{font-size:56px;margin-bottom:8px}
+.hero h1{font-size:24px;font-weight:900;margin-bottom:6px}
+.hero p{color:var(--soft);font-size:14px}
+
+.card{background:var(--card);border-radius:var(--r);padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
+
+.sec-title{font-size:14px;font-weight:700;color:var(--soft);margin:18px 0 10px;display:flex;align-items:center;gap:7px}
+
+.item{background:#fff;border-radius:var(--r);padding:20px 22px;box-shadow:var(--shadow);
+  margin-bottom:13px;cursor:pointer;transition:all .25s;border:2px solid transparent;width:100%;text-align:left;display:block}
+.item:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(140,120,190,.22);border-color:var(--purple)}
+.item h3{font-size:17px;font-weight:700;margin-bottom:6px}
+.item .desc{color:var(--soft);font-size:13px;margin-bottom:10px}
+.meta{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--light);align-items:center}
+.badge{display:inline-block;padding:3px 11px;border-radius:20px;font-size:12px;font-weight:600}
+.b-green{background:var(--green-soft);color:#2DA84A}
+.b-gray{background:#F0EDF5;color:var(--soft)}
+.b-blue{background:var(--blue-soft);color:#3D8BE8}
+.b-purple{background:var(--purple-soft);color:#7A6FE0}
+
+.q-block{background:#fff;border-radius:var(--r);padding:20px 22px;box-shadow:var(--shadow);margin-bottom:12px}
+.q-text{font-size:16px;font-weight:600;margin-bottom:12px;line-height:1.6}
+.q-num{display:inline-block;background:var(--purple);color:#fff;font-size:13px;border-radius:8px;
+  padding:2px 10px;margin-right:8px;font-weight:700}
+.q-req{color:var(--red);font-weight:700;margin-left:4px}
+.q-type{display:inline-block;background:var(--bg2);color:var(--soft);font-size:11px;
+  border-radius:6px;padding:1px 7px;margin-left:6px;font-weight:600}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;align-items:center;gap:11px;padding:13px 17px;border:2px solid var(--border);
+  border-radius:13px;cursor:pointer;transition:all .18s;font-size:15px;text-align:left;width:100%;background:#fff}
+.opt:hover{border-color:var(--purple);background:var(--purple-soft)}
+.opt.on{border-color:var(--purple);background:var(--purple-soft);font-weight:600}
+.opt-mark{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;transition:all .18s}
+.opt.on .opt-mark{background:var(--purple);border-color:var(--purple)}
+.opt-mark.sq{border-radius:6px}
+
+.stars{display:flex;gap:8px;flex-wrap:wrap}
+.star{width:52px;height:52px;border-radius:14px;border:2px solid var(--border);background:#fff;
+  font-size:18px;font-weight:700;color:var(--soft);display:flex;align-items:center;justify-content:center;transition:all .18s}
+.star:hover{border-color:var(--purple)}
+.star.on{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;border-color:transparent;
+  box-shadow:0 5px 16px rgba(162,155,254,.35)}
+
+.qinput{width:100%;padding:13px 16px;border:2px solid var(--border);border-radius:13px;
+  font-size:15px;outline:none;transition:border-color .2s}
+.qinput:focus{border-color:var(--purple)}
+textarea.qinput{resize:vertical;min-height:96px}
+
+.progress-wrap{margin-bottom:18px}
+.pbar{height:9px;background:var(--bg2);border-radius:9px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--purple),var(--blue));border-radius:9px;transition:width .3s}
+.ptext{font-size:12px;color:var(--soft);margin-top:6px;text-align:right}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:14px 30px;
+  border-radius:var(--rs);font-size:16px;font-weight:600;transition:all .22s}
+.btn-p{background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;box-shadow:0 6px 20px rgba(162,155,254,.35)}
+.btn-p:hover{transform:translateY(-2px)}
+.btn-s{background:#fff;color:var(--text);border:2px solid var(--border)}
+.btn-s:hover{border-color:var(--purple);color:var(--purple)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
+
+.toast{position:fixed;top:18px;left:50%;transform:translateX(-50%) translateY(-18px);background:var(--text);
+  color:#fff;padding:11px 22px;border-radius:13px;font-size:14px;z-index:9999;opacity:0;visibility:hidden;
+  pointer-events:none;transition:opacity .3s,transform .3s,visibility 0s linear .3s}
+.toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);transition:opacity .3s,transform .3s,visibility 0s}
+.toast.ok{background:#2ECC71}.toast.err{background:var(--red)}
+
+.view{display:none}
+.view.on{display:block;animation:fade .34s ease}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.empty{text-align:center;padding:56px 20px;color:var(--soft)}
+.empty-icon{font-size:58px;margin-bottom:12px}
+.spinner{text-align:center;padding:44px;color:var(--soft)}
+.foot{text-align:center;font-size:12px;color:var(--light);margin-top:26px}
+.form-row{display:flex;gap:11px;margin-bottom:12px}
+.form-row>*{flex:1}
+.fg label{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
+.fg input,.fg select{width:100%;padding:12px 15px;border:2px solid var(--border);border-radius:12px;
+  font-size:15px;outline:none;transition:border-color .2s}
+.fg input:focus,.fg select:focus{border-color:var(--purple)}
+.result{text-align:center;padding:36px 20px}
+.result .re{font-size:66px;margin-bottom:12px}
+.result h2{font-size:23px;font-weight:900;margin-bottom:9px}
+.result p{color:var(--soft);font-size:14px;margin-bottom:6px}
+.warn{background:var(--red-soft);border-radius:12px;padding:12px 16px;font-size:13px;color:#C0455F;margin-top:14px;text-align:left}
+@media(max-width:640px){
+  .container{padding:16px 13px 46px}
+  .card,.q-block{padding:18px 16px}
+  .hero h1{font-size:20px}
+  .btn{padding:13px 22px;font-size:15px}
+  .star{width:46px;height:46px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo" onclick="goHome()"><div class="logo-icon">💜</div>心理小调查</div>
+  <div class="school">武汉市光谷第二十六小学</div>
+  <button class="btn btn-s" style="padding:8px 14px;font-size:13px" onclick="location.href='/admin'">老师入口</button>
+</div>
+
+<div class="container">
+  <div class="privacy">
+    <div class="pi">🔒</div>
+    <div><b>你的答案，只有心理老师能看到</b>
+    <span>不会给班主任、不会给家长、不会记入成绩。请按真实想法作答，没有标准答案。</span></div>
+  </div>
+
+  <div class="view on" id="vList">
+    <div class="hero"><div class="hero-emoji">💜</div><h1>同学你好</h1>
+      <p>下面是一些关于你心情和想法的小问题，选最符合你的那个就好</p></div>
+    <div id="listBox"><div class="spinner">正在加载…</div></div>
+    <div class="foot">武汉市光谷第二十六小学 · 心理健康中心</div>
+  </div>
+
+  <div class="view" id="vFill"><div id="fillBox"></div></div>
+  <div class="view" id="vDone"><div id="doneBox"></div></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const GRADES = ['一年级','二年级','三年级','四年级','五年级','六年级'];
+const DRAFT = 'psych_draft_';
+const TYPE_NAME = { single:'单选', multi:'多选', text:'填空', textarea:'问答',
+  rating:'评分', scale:'量表', number:'数字', date:'日期' };
+
+let state = { kind:null, plans:[], surveys:[], current:null, items:[], questions:[],
+  answers:{}, student:{}, startedAt:null, submitting:false };
+
+function toast(m,t=''){const e=document.getElementById('toast');e.textContent=m;e.className='toast show '+t;
+  setTimeout(()=>{e.className='toast '+t;},2500);}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function show(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.getElementById(id).classList.add('on');window.scrollTo(0,0);}
+
+async function api(p,opts={}){
+  const r=await fetch(p,opts);
+  const ct=r.headers.get('content-type')||'';
+  const b=ct.includes('json')?await r.json():await r.text();
+  if(r.status>=400&&b&&b.message) throw new Error(b.message);
+  return b;
+}
+
+async function loadAll(){
+  try{ state.plans=await api('/api/plans/open'); }catch(e){ state.plans=[]; }
+  try{ state.surveys=await api('/api/surveys/open'); }catch(e){ state.surveys=[]; }
+  renderList();
+}
+
+function renderList(){
+  const box=document.getElementById('listBox');
+  const hasP=state.plans.length, hasS=state.surveys.length;
+  if(!hasP&&!hasS){
+    box.innerHTML='<div class="empty"><div class="empty-icon">📭</div><p>现在没有需要填写的内容</p></div>';return;
+  }
+  let h='';
+  if(hasP){
+    h+='<div class="sec-title">🧠 心理普查</div>';
+    h+=state.plans.map(p=>{
+      const closed=!p.windowOpen;
+      return '<button class="item"'+(closed?' disabled style="opacity:.6;cursor:not-allowed"':' onclick="openPlan(\''+esc(p.id)+'\')"')+'>\n'+
+        '<h3>'+esc(p.title)+'</h3>'+
+        (p.notice?'<div class="desc">'+esc(p.notice)+'</div>':'')+
+        '<div class="meta">'+
+        (closed?'<span class="badge b-gray">'+esc(p.windowNote||'未开放')+'</span>':'<span class="badge b-green">进行中</span>')+
+        (p.endAt?'<span>⏰ 截止 '+esc(String(p.endAt).slice(0,10))+'</span>':'')+
+        (p.anonymous?'<span class="badge b-blue">匿名填写</span>':'')+
+        '</div></button>';
+    }).join('');
+  }
+  if(hasS){
+    h+='<div class="sec-title">📝 问卷调查</div>';
+    h+=state.surveys.map(s=>{
+      const closed=!s.windowOpen;
+      return '<button class="item"'+(closed?' disabled style="opacity:.6;cursor:not-allowed"':' onclick="openSurvey(\''+esc(s.id)+'\')"')+'>\n'+
+        '<h3>'+esc(s.title)+'</h3>'+
+        (s.description?'<div class="desc">'+esc(s.description)+'</div>':'')+
+        '<div class="meta">'+
+        (closed?'<span class="badge b-gray">'+esc(s.windowNote||'未开放')+'</span>':'<span class="badge b-purple">进行中</span>')+
+        (s.endAt?'<span>⏰ 截止 '+esc(String(s.endAt).slice(0,10))+'</span>':'')+
+        (s.anonymous?'<span class="badge b-blue">匿名填写</span>':'')+
+        '</div></button>';
+    }).join('');
+  }
+  box.innerHTML=h;
+}
+
+async function openPlan(id){
+  state.kind='plan'; show('vFill');
+  document.getElementById('fillBox').innerHTML='<div class="spinner">正在准备题目…</div>';
+  try{
+    const d=await api('/api/plan/detail?id='+encodeURIComponent(id));
+    state.current=d; state.items=d.items||[]; state.answers={};
+    state.startedAt=new Date().toISOString();
+    if(!state.items.length){ noItem(); return; }
+    try{const s=localStorage.getItem(DRAFT+id);
+      if(s){const o=JSON.parse(s); if(o.answers)state.answers=o.answers; if(o.student)state.student=o.student;}}catch(e){}
+    renderFill();
+  }catch(e){ fail(e); }
+}
+
+async function openSurvey(id){
+  state.kind='survey'; show('vFill');
+  document.getElementById('fillBox').innerHTML='<div class="spinner">正在准备问卷…</div>';
+  try{
+    const d=await api('/api/survey/detail?id='+encodeURIComponent(id));
+    state.current=d; state.questions=d.questions||[]; state.answers={};
+    state.startedAt=new Date().toISOString();
+    if(!state.questions.length){ noItem(); return; }
+    try{const s=localStorage.getItem(DRAFT+id);
+      if(s){const o=JSON.parse(s); if(o.answers)state.answers=o.answers; if(o.student)state.student=o.student;}}catch(e){}
+    renderFill();
+  }catch(e){ fail(e); }
+}
+
+function noItem(){
+  document.getElementById('fillBox').innerHTML=
+    '<div class="empty"><div class="empty-icon">📝</div><p>还没有题目</p>'+
+    '<button class="btn btn-s" style="margin-top:14px" onclick="goHome()">← 返回</button></div>';
+}
+function fail(e){
+  document.getElementById('fillBox').innerHTML='<div class="empty"><div class="empty-icon">😥</div><p>'+esc(e.message)+
+    '</p><button class="btn btn-s" style="margin-top:14px" onclick="goHome()">← 返回</button></div>';
+}
+function goHome(){ state.current=null; show('vList'); loadAll(); }
+function saveDraft(){ if(!state.current)return;
+  try{localStorage.setItem(DRAFT+state.current.id,JSON.stringify({answers:state.answers,student:state.student}));}catch(e){} }
+
+function isSurvey(){ return state.kind==='survey'; }
+function list(){ return isSurvey()?state.questions:state.items; }
+function keyOf(it){ return isSurvey()?it.id:it.id; }
+
+function isAnswered(v){
+  if(v===undefined||v===null||v==='') return false;
+  if(Array.isArray(v)) return v.length>0;
+  return true;
+}
+
+function renderFill(){
+  const d=state.current; if(!d)return;
+  const arr=list();
+  const n=arr.filter(x=>isAnswered(state.answers[x.id])).length;
+  const pct=arr.length?Math.round(n/arr.length*100):0;
+
+  let h='<div class="card"><div style="font-weight:700;font-size:17px;margin-bottom:6px">'+
+    (isSurvey()?'📝 ':'📋 ')+esc(d.title)+'</div>'+
+    '<div class="progress-wrap"><div class="pbar"><div class="pfill" style="width:'+pct+'%"></div></div>'+
+    '<div class="ptext">已答 '+n+' / '+arr.length+' 题</div></div>'+
+    '<div class="privacy" style="margin:0"><div class="pi">🔒</div><div><b>放心作答</b>'+
+    '<span>答案只有心理老师能看到，按你的真实想法选就好。</span></div></div></div>';
+
+  if(!d.anonymous){
+    h+='<div class="card"><div style="font-weight:700;margin-bottom:12px">👤 先认识一下你</div>'+
+      '<div class="form-row"><div class="fg"><label>姓名</label>'+
+      '<input id="sName" placeholder="请输入姓名" value="'+esc(state.student.name||'')+'" oninput="setStu(\'name\',this.value)"></div></div>'+
+      '<div class="form-row"><div class="fg"><label>年级</label><select id="sGrade" onchange="setStu(\'grade\',this.value)">'+
+      '<option value="">请选择</option>'+GRADES.map(g=>'<option value="'+g+'"'+(state.student.grade===g?' selected':'')+'>'+g+'</option>').join('')+
+      '</select></div><div class="fg"><label>班级</label>'+
+      '<input id="sClass" placeholder="如 3班" value="'+esc(state.student.className||'')+'" oninput="setStu(\'className\',this.value)"></div></div>'+
+      (isSurvey()?'':'<div class="form-row"><div class="fg"><label>性别（用于对照常模，可留空）</label><select id="sGender" onchange="setStu(\'gender\',this.value)">'+
+      '<option value="">不填</option><option value="男"'+(state.student.gender==='男'?' selected':'')+'>男</option>'+
+      '<option value="女"'+(state.student.gender==='女'?' selected':'')+'>女</option></select></div></div>')+
+      '</div>';
+  }
+
+  arr.forEach((q,i)=>{
+    const v=state.answers[q.id];
+    h+='<div class="q-block"><div class="q-text"><span class="q-num">'+(i+1)+'</span>'+esc(q.title)+
+      (isSurvey()&&q.required?'<span class="q-req">*</span>':'')+
+      (isSurvey()?'<span class="q-type">'+esc(TYPE_NAME[q.type]||q.type)+'</span>':'')+'</div>';
+
+    if(!isSurvey()){
+      h+='<div class="opts">'+(q.options||[]).map(o=>
+        '<button class="opt'+(v===o?' on':'')+'" onclick="pick(\''+esc(q.id)+'\',\''+esc(o)+'\')">'+
+        '<span class="opt-mark">'+(v===o?'✓':'')+'</span><span>'+esc(o)+'</span></button>').join('')+'</div>';
+    } else if(q.type==='single'||q.type==='scale'){
+      h+='<div class="opts">'+(q.options||[]).map(o=>
+        '<button class="opt'+(v===o?' on':'')+'" onclick="pick(\''+esc(q.id)+'\',\''+esc(o)+'\')">'+
+        '<span class="opt-mark">'+(v===o?'✓':'')+'</span><span>'+esc(o)+'</span></button>').join('')+'</div>';
+    } else if(q.type==='multi'){
+      const arr2=Array.isArray(v)?v:[];
+      h+='<div class="opts">'+(q.options||[]).map(o=>
+        '<button class="opt'+(arr2.includes(o)?' on':'')+'" onclick="toggle(\''+esc(q.id)+'\',\''+esc(o)+'\')">'+
+        '<span class="opt-mark sq">'+(arr2.includes(o)?'✓':'')+'</span><span>'+esc(o)+'</span></button>').join('')+
+        '</div><div class="ptext" style="text-align:left">可多选，已选 '+arr2.length+' 项</div>';
+    } else if(q.type==='rating'){
+      const max=Number((q.config||{}).max)||5;
+      h+='<div class="stars">';
+      for(let k=1;k<=max;k++){
+        h+='<button class="star'+(v===k?' on':'')+'" onclick="pick(\''+esc(q.id)+'\','+k+')">'+k+'</button>';
+      }
+      h+='</div>'+(v?'<div class="ptext" style="text-align:left">你选了 '+v+' 分</div>':'');
+    } else if(q.type==='textarea'){
+      h+='<textarea class="qinput" placeholder="请写下你的想法…" oninput="pick(\''+esc(q.id)+'\',this.value)">'+esc(v||'')+'</textarea>';
+    } else if(q.type==='number'){
+      h+='<input class="qinput" type="number" placeholder="请输入数字" value="'+esc(v==null?'':v)+'" oninput="pick(\''+esc(q.id)+'\',this.value===\'\'?\'\':Number(this.value))">';
+    } else if(q.type==='date'){
+      h+='<input class="qinput" type="date" value="'+esc(v||'')+'" oninput="pick(\''+esc(q.id)+'\',this.value)">';
+    } else {
+      h+='<input class="qinput" type="text" placeholder="请输入…" value="'+esc(v||'')+'" oninput="pick(\''+esc(q.id)+'\',this.value)">';
+    }
+    h+='</div>';
+  });
+
+  h+='<div style="text-align:center;padding:8px 0 26px"><button class="btn btn-p" id="btnSub" onclick="submit()">提交 ✅</button>'+
+     '<div style="margin-top:11px"><button class="btn btn-s" style="padding:9px 18px;font-size:13px" onclick="goHome()">← 返回</button></div></div>';
+  document.getElementById('fillBox').innerHTML=h;
+}
+
+function pick(id,val){ state.answers[id]=val; saveDraft(); renderFill(); }
+function toggle(id,val){
+  const arr=Array.isArray(state.answers[id])?state.answers[id].slice():[];
+  const i=arr.indexOf(val);
+  if(i>=0) arr.splice(i,1); else arr.push(val);
+  state.answers[id]=arr; saveDraft(); renderFill();
+}
+function setStu(k,v){ state.student[k]=v; saveDraft(); }
+
+async function submit(){
+  const d=state.current; if(!d||state.submitting)return;
+  if(!d.anonymous){
+    if(!(state.student.name||'').trim()){toast('请填写姓名','err');document.getElementById('sName')?.focus();return;}
+    if(!state.student.grade){toast('请选择年级','err');return;}
+  }
+  const arr=list();
+  for(let i=0;i<arr.length;i++){
+    const q=arr[i];
+    if(isSurvey()&&!q.required) continue;
+    if(!isAnswered(state.answers[q.id])){
+      toast('第 '+(i+1)+' 题还没填哦','err');
+      document.querySelectorAll('.q-block')[i]?.scrollIntoView({behavior:'smooth',block:'center'});
+      return;
+    }
+  }
+  const btn=document.getElementById('btnSub'); state.submitting=true;
+  if(btn){btn.disabled=true;btn.textContent='正在提交…';}
+  try{
+    const dur=Math.round((Date.now()-new Date(state.startedAt).getTime())/1000);
+    const base={ name:d.anonymous?'':(state.student.name||'').trim(),
+      grade:d.anonymous?'':(state.student.grade||''),
+      className:d.anonymous?'':(state.student.className||'').trim(),
+      startedAt:state.startedAt, durationSec:dur };
+    let res;
+    if(isSurvey()){
+      res=await api('/api/survey/submit',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({...base, surveyId:d.id,
+          answers:state.questions.map(q=>({qid:q.id,value:state.answers[q.id]}))})});
+    } else {
+      res=await api('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({...base, gender:d.anonymous?'':(state.student.gender||''), planId:d.id,
+          answers:state.items.map(it=>({itemId:it.id,value:state.answers[it.id]}))})});
+    }
+    try{localStorage.removeItem(DRAFT+d.id);}catch(e){}
+    renderDone(res); show('vDone');
+  }catch(e){ toast('提交失败：'+e.message,'err'); }
+  finally{ state.submitting=false; if(btn){btn.disabled=false;btn.textContent='提交 ✅';} }
+}
+
+function renderDone(res){
+  let h='<div class="card"><div class="result"><div class="re">🎉</div><h2>提交成功啦！</h2>'+
+    '<p>'+esc(res.thanksText||'谢谢你认真作答！')+'</p>'+
+    '<p style="font-size:13px;margin-top:8px">你的答案已经安全送达心理老师那里 🔒</p>';
+  if(res.valid===false){
+    h+='<div class="warn">⚠️ 系统检测到这份答卷可能没有反映你的真实情况（'+esc(res.invalidReason||'')+
+      '）。心理老师可能会再找你聊一聊，不用紧张哦。</div>';
+  }
+  h+='</div><div style="text-align:center;padding-bottom:8px">'+
+     '<button class="btn btn-p" onclick="goHome()">好的</button></div></div>'+
+     '<div class="foot">武汉市光谷第二十六小学 · 心理健康中心</div>';
+  document.getElementById('doneBox').innerHTML=h;
+}
+
+loadAll();
+</script>
+</body>
+</html>

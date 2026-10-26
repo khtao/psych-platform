@@ -1,0 +1,19 @@
+name = "psych-platform"
+main = "worker.js"
+compatibility_date = "2024-12-01"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+
+# D1（不用 KV：免费层每天仅 1000 次写入，全校普查会超限）
+[[d1_databases]]
+binding = "DB"
+database_name = "psych-db"
+database_id = "你的id"
+
+[vars]
+TEACHER_PASSWORD = "gg26x"
+
+[observability]
+enabled = true

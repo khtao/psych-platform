@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>数据库初始化 · 心理健康平台</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#FFF8F0;color:#4A3F35;padding:24px;line-height:1.6}
+.wrap{max-width:760px;margin:0 auto}
+h1{font-size:22px;margin-bottom:6px}
+.sub{color:#8B7D6B;font-size:13px;margin-bottom:20px}
+.card{background:#fff;border-radius:16px;padding:22px;box-shadow:0 8px 24px rgba(180,140,100,.12);margin-bottom:16px}
+label{font-size:13px;font-weight:600;display:block;margin-bottom:6px}
+input{width:100%;padding:11px 14px;border:2px solid #F0E4D4;border-radius:12px;font-size:15px;outline:none;margin-bottom:12px}
+button{padding:11px 24px;border:none;border-radius:12px;background:#FF6B6B;color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+button:hover{opacity:.9}
+button:disabled{opacity:.5;cursor:not-allowed}
+pre{background:#4A3F35;color:#f5f0ea;padding:16px;border-radius:12px;font-size:12px;overflow:auto;white-space:pre-wrap;word-break:break-all;line-height:1.7;max-height:420px}
+.ok{color:#2ECC71;font-weight:700}
+.bad{color:#E74C3C;font-weight:700}
+.hint{font-size:12px;color:#8B7D6B;margin-top:10px}
+.step{background:#FFF1E0;border-radius:10px;padding:10px 14px;margin:8px 0;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🔧 数据库初始化</h1>
+  <p class="sub">只在首次部署、或提示「no such table」时需要跑一次</p>
+
+  <div class="card">
+    <label>教师密码</label>
+    <input type="password" id="pwd" placeholder="默认 gg26x" value="gg26x">
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button onclick="runSetup()" id="btnInit">1️⃣ 初始化数据库</button>
+      <button onclick="runSeed()" id="btnSeed" style="background:#9B59B6">2️⃣ 载入题库（24 个量表）</button>
+      <button onclick="runDiag()" style="background:#54A0FF">3️⃣ 诊断状态</button>
+      <button onclick="runHealth()" style="background:#5CD85C">4️⃣ 健康检查</button>
+    </div>
+    <div class="hint">按顺序点：初始化 → 载入题库 → 诊断 → 健康检查。<br>
+    「载入题库」会分批多次请求（每批几十题），页面会实时显示进度，中途断网也能续上，多点是安全的。</div>
+  </div>
+
+  <div class="card">
+    <div style="font-weight:700;margin-bottom:10px">输出结果</div>
+    <pre id="out">点击上面的按钮开始…</pre>
+  </div>
+
+  <div class="card">
+    <div style="font-weight:700;margin-bottom:8px">💡 说明</div>
+    <div class="step">初始化会创建 <b>14 张表</b>（量表库、普查计划、答卷、筛查、访谈、个案、干预、复测、转介、结案等）和 15 个索引，并载入 <b>24 个内置量表</b>的维度与分档规则（题目由「载入题库」分批写入）。</div>
+    <div class="step">诊断会告诉你：数据库绑定在不在、表列表、各表是否存在、密码来源、真实错误信息。</div>
+    <div class="step">如果表创建失败，说明 <code>wrangler.toml</code> 里的 <code>database_id</code> 不对，或该 D1 数据库不存在。</div>
+    <div class="hint">⚠️ 本页面带密码，不要发到公开群。</div>
+  </div>
+</div>
+
+<script>
+const out = document.getElementById('out');
+const btn = document.getElementById('btnInit');
+
+function pwd(){ return encodeURIComponent(document.getElementById('pwd').value || 'gg26x'); }
+
+function show(title, obj){
+  let txt = '=== ' + title + ' ===\n\n' + JSON.stringify(obj, null, 2);
+  out.textContent = txt;
+  // 简单着色
+  out.innerHTML = txt
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"(ok)": true/g, '"<span class="ok">ok</span>": true')
+    .replace(/"(ok)": false/g, '"<span class="bad">ok</span>": false')
+    .replace(/"(dbReady)": true/g, '"<span class="ok">dbReady</span>": true')
+    .replace(/"(dbReady)": false/g, '"<span class="bad">dbReady</span>": false')
+    .replace(/"(records表存在)": true/g, '"<span class="ok">records表存在</span>": true')
+    .replace(/"(records表存在)": false/g, '"<span class="bad">records表存在</span>": false')
+    .replace(/"(表现在存在)": true/g, '"<span class="ok">表现在存在</span>": true')
+    .replace(/"(表现在存在)": false/g, '"<span class="bad">表现在存在</span>": false');
+}
+
+async function go(path, title){
+  out.textContent = '⏳ 正在' + title + '…';
+  try{
+    const r = await fetch(path + '?pwd=' + pwd());
+    const d = await r.json();
+    show(title, d);
+  }catch(e){
+    out.textContent = '❌ 请求失败: ' + e.message;
+  }
+}
+
+function runSetup(){ go('/api/setup', '初始化结果'); }
+
+// 分块载入题库：循环调用 /api/seed 直到 done
+async function runSeed(){
+  const b = document.getElementById('btnSeed');
+  b.disabled = true;
+  let budget = 150, round = 0;
+  for(let i=0;i<200;i++){
+    round++;
+    out.textContent = `⏳ 正在载入题库… 第 ${round} 批（每批最多 ${budget} 题）\n请勿关闭页面。`;
+    let d = null;
+    try{
+      const r = await fetch('/api/seed?limit=' + budget + '&pwd=' + pwd());
+      d = await r.json();
+    }catch(e){
+      // 单次量太大被中断 → 减半重试
+      budget = Math.max(20, Math.floor(budget/2));
+      if(budget <= 20 && round > 20) break;
+      continue;
+    }
+    if(!d || typeof d !== 'object') break;
+    if(d.done || d.remaining === 0){ show('题库载入完成（共 '+round+' 批）', d); b.disabled = false; return; }
+    out.textContent = `⏳ 载入中… 已进行 ${round} 批，还剩 ${d.remaining} / ${d.totalScales} 个量表未载入。\n请勿关闭页面。`;
+  }
+  out.textContent = '⚠️ 未能完成，请刷新页面后再次点击「载入题库」继续（已载入的部分会保留）。';
+  b.disabled = false;
+}
+function runDiag(){ go('/api/diag', '诊断结果'); }
+async function runHealth(){
+  out.textContent = '⏳ 正在检查…';
+  try{
+    const r = await fetch('/api/health');
+    show('健康检查', await r.json());
+  }catch(e){
+    out.textContent = '❌ 请求失败: ' + e.message;
+  }
+}
+</script>
+</body>
+</html>
